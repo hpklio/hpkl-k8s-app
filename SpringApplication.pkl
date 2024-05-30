@@ -1,4 +1,4 @@
-open module alunex.k8s.BaseApplication
+open module hpkl.app.spring
 
 extends "Application.pkl"
 
