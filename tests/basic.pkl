@@ -1,0 +1,32 @@
+amends "pkl:test"
+
+import "../Application.pkl"
+
+examples {
+  ["application-name"] {
+    new Application{
+      applicationName = "RandName"
+    }
+  }
+  ["Resources"] {
+    new Application{
+      resourcesRequests {
+        cpu = 722
+        memory = 122.mib
+      }
+      resourcesLimits = null
+    }
+  }
+}
+
+facts {
+  ["Resource Limits is Empty"] {
+    new Application{
+      resourcesRequests {
+        cpu = 722
+        memory = 122.mib
+      }
+      resourcesLimits  = null
+    }.deployment.spec.template.spec.containers[0].resources.limits == null
+  }
+}

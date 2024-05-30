@@ -1,0 +1,158 @@
+open module hpkl.app
+
+import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/K8sResource.pkl"
+import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/K8sObject.pkl"
+import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/api/apps/v1/Deployment.pkl"
+import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/api/core/v1/ConfigMap.pkl"
+import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/api/core/v1/Secret.pkl"
+import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/api/core/v1/Service.pkl"
+import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/api/core/v1/ServiceAccount.pkl"
+import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/api/networking/v1/Ingress.pkl"
+
+import "renderer.pkl"
+
+applicationName = "app"
+
+class K8SResource {
+  cpu: UInt32 = 500
+  memory: DataSize = 128.mib
+}
+
+resourcesRequests: K8SResource = new {}
+resourcesLimits: K8SResource? = resourcesRequests
+
+imageName = ""
+
+containerConfigPath = "/app/config"
+containerSecretPath = "/app/secret"
+configFileName = "application.\(configRenderer?.extension)"
+secretFileName = "application.secrets.\(configRenderer?.extension)"
+configRenderer =  new YamlRenderer{}
+
+config: Typed?
+configMixin: Mixin<Dynamic>?
+
+deployment: Deployment = new {
+  metadata {
+    name = applicationName
+    labels {
+      ["name"] = applicationName
+      ["app.kubernetes.io/name"] = applicationName
+    }
+  }
+  spec {
+    template {
+      spec {
+        when (module.serviceAccount != null) {
+          serviceAccountName = module.serviceAccount.metadata.name
+        }
+        containers {
+          new {
+            name = "app"
+            image = imageName
+            imagePullPolicy = "Always"
+            resources {
+              requests {
+                ["cpu"] = "\(module.resourcesRequests.cpu)m"
+                ["memory"] = module.resourcesRequests.memory.toUnit("mib")
+              }
+              when (module.resourcesLimits != null) {
+                limits {
+                  ["cpu"] = "\(module.resourcesLimits.cpu)m"
+                  ["memory"] = module.resourcesLimits.memory.toUnit("mib")
+                }
+              }
+            }
+            volumeMounts {
+              when (module.configMap != null) {
+                new {
+                  name = "config"
+                  mountPath = containerConfigPath
+                  readOnly = true
+                }
+              }
+              when (module.secret != null) {
+                new {
+                  name = "secret"
+                  mountPath = containerSecretPath
+                  readOnly = true
+                }
+              }
+            }
+          }
+        }
+        volumes {
+          when (module.configMap != null) {
+            new {
+              name = "config"
+              configMap {
+                name = module.configMap.metadata.name
+                items {
+                  for (_key, _ in module.configMap.data!!) {
+                    new {
+                      key = _key
+                      path = _key
+                    }
+                  }
+                }
+              }
+            }
+          }
+          when (module.secret != null) {
+            new {
+              name = "secret"
+              secret {
+                secretName = module.secret.metadata.name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+ingress: Ingress?
+service: Service?
+serviceAccount: ServiceAccount?
+additional: Mapping<String, K8sResource>
+
+local secretRenderer = new renderer.SecretRenderer{}
+
+configMap = if (config != null) new ConfigMap {
+  metadata {
+    name = "\(applicationName)-config"
+    labels {
+      ["app.kubernetes.io/name"] = "\(applicationName)-config"
+    }
+  }
+  data {
+    [configFileName] = configRenderer.renderValue(
+      let (rendered = secretRenderer.render(config, false))
+        rendered |> (configMixin ?? new Mixin<Dynamic> {})
+    )
+  }
+} else null
+
+secret = if (config != null) new Secret {
+  type = "Opaque"
+  metadata {
+    name = "\(applicationName)-secrets"
+    labels {
+      ["app.kubernetes.io/name"] = "\(applicationName)-secrets"
+    }
+  }
+  data {
+    [secretFileName] = configRenderer.renderValue(secretRenderer.render(config, true))
+  }
+} else null
+
+
+output {
+  renderer = new YamlRenderer {
+    isStream = true
+    converters = (K8sObject.output.renderer as YamlRenderer).converters
+  }
+  value = (List(configMap, deployment, ingress, secret, service, serviceAccount) + additional?.toMap().values.toList()).filterNonNull()
+}
+

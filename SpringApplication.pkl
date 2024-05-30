@@ -1,0 +1,180 @@
+open module alunex.k8s.BaseApplication
+
+extends "Application.pkl"
+
+applicationName = "BaseApplication"
+
+class Controller {
+  port: UInt16
+}
+
+grpc: Controller? = new { port = 9090 }
+http: Controller? = new { port = 8080 }
+
+local configs = (configMap?.data?.keys?.map((k) -> "\(containerConfigPath)/\(k)"))
+local secrets = (secret?.data?.keys?.map((k) -> "\(containerSecretPath)/\(k)"))
+local configPaths = (configs ?? Set()) + (secrets ?? Set())
+
+
+service = if (grpc != null || http != null) new {
+  metadata {
+    name = applicationName
+    labels {
+      ["name"] = applicationName
+      ["app.kubernetes.io/name"] = applicationName
+    }
+  }
+  spec {
+    clusterIP = "None"
+    ports {
+      when (module.http.port != null) {
+        new {
+          name = "http"
+          port = module.http.port
+          protocol = "TCP"
+          targetPort = "http"
+        }
+      }
+      when (module.grpc.port != null) {
+        new {
+          name = "grpc"
+          port = module.grpc.port
+          protocol = "TCP"
+          targetPort = "grpc"
+        }
+      }
+    }
+  }
+} else null
+
+deployment {
+  spec {
+    replicas = 2
+    revisionHistoryLimit = 2
+    minReadySeconds = 10
+    strategy {
+      type = "RollingUpdate"
+      rollingUpdate {
+        maxSurge = 1
+        maxUnavailable = 0
+      }
+    }
+    template {
+      metadata {
+        annotations {
+          ["prometheus.io/scrape"] = "true"
+          ["prometheus.io/path"] = "/actuator/prometheus"
+          ["prometheus.io/port"] = "8081"
+        }
+      }
+      spec {
+        containers {
+          [0] {
+            name = "app"
+            imagePullPolicy = "Always"
+            terminationMessagePolicy = "FallbackToLogsOnError"
+            env {
+              when (configPaths != null && !configPaths.isEmpty) {
+                new {
+                  name = "SPRING_CONFIG_ADDITIONAL_LOCATION"
+                  value = configPaths.join(",")
+                }
+              }
+            }
+            ports {
+              when (module.http != null) {
+                new {
+                  name = "http"
+                  containerPort = module.http.port
+                }
+              }
+              when (module.grpc != null) {
+                new {
+                  name = "grpc"
+                  containerPort = module.grpc.port
+                }
+              }
+              new {
+                name = "mgmt"
+                containerPort = 8081
+              }
+            }
+            startupProbe {
+              httpGet {
+                path = "/actuator/health/liveness"
+                port = "mgmt"
+              }
+              periodSeconds = 20
+              failureThreshold = 5
+            }
+            livenessProbe {
+              httpGet {
+                path = "/actuator/health"
+                port = "mgmt"
+              }
+              initialDelaySeconds = 30
+              periodSeconds = 5
+              failureThreshold = 3
+            }
+            readinessProbe {
+              httpGet {
+                path = "/actuator/health"
+                port = "mgmt"
+              }
+              initialDelaySeconds = 30
+              periodSeconds = 5
+              failureThreshold = 3
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+serviceAccount {
+  metadata {
+    name = applicationName
+    labels {
+      ["app.kubernetes.io/name"] = applicationName
+    }
+  }
+}
+
+configMixin {
+  spring {
+    application {
+      name = applicationName
+    }
+  }
+  management {
+    server {
+      port = 8081
+    }
+    metrics {
+      export {
+        prometheus {
+          enabled = true
+        }
+      }
+    }
+    endpoint {
+      health {
+        `show-details` =  "ALWAYS"
+      }
+      metrics {
+        enabled = true
+      }
+      prometheus {
+        enabled = true
+      }
+    }
+    endpoints {
+      web {
+        exposure {
+          include = "*"
+        }
+      }
+    }
+  }
+}

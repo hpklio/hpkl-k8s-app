@@ -1,0 +1,18 @@
+amends "pkl:Project"
+
+package {
+  name = "app"
+  baseUri = "package://ghcr.io/hpklio/app"
+  version = "0.1.0"
+  packageZipUrl = "https://github/hpklio/app/releases/\(version)/app-\(version).zip"
+}
+
+dependencies {
+  ["k8s"] {
+    uri = "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1"
+  }
+}
+
+tests {
+  "tests/basic.pkl"
+}

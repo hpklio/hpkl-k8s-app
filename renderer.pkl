@@ -1,0 +1,46 @@
+import "pkl:reflect"
+
+class SecretField extends Annotation {}
+class NamedField extends Annotation { name: String }
+
+class ClassElement {
+  name: String
+  property: reflect.Property
+  val: unknown
+  typed: Boolean
+}
+
+class SecretRenderer {
+  function renderSecrets(value: Typed): Dynamic = render(value, true)
+  function renderConfigs(value: Typed): Dynamic = render(value, false)
+
+  function isSecretField(p: reflect.Property): Boolean = p.annotations.any((a) -> a.getClass() == SecretField)
+
+  function namedField(p: reflect.Property, name: String): String =
+    p.annotations.findOrNull((a) -> a.getClass() == NamedField)?.getProperty("name") ?? name
+
+  function render(value: Typed, secrets: Boolean): Dynamic  =
+    let (clazz = reflect.Class(value.getClass()))
+        clazz.properties
+          .map((n, p) ->
+              Pair(n, new ClassElement{
+                  name = n
+                  property = p
+                  val = value.getProperty(n)
+                  typed = false
+              })
+          ).values.map((ce) ->
+            if (reflect.Class(ce.val.getClass()).isSubclassOf(reflect.Class(Typed)))
+              new ClassElement{
+                    name = ce.name
+                    property = ce.property
+                    val = render(ce.val, secrets)
+                    typed = true
+              } else ce
+           ).toMap((ce) -> namedField(ce.property, ce.name), (ce) ->
+              if (ce.typed) if ((ce.val as Dynamic).toMap().values.filterNonNull().isEmpty) null else ce.val
+              else if (secrets && isSecretField(ce.property)) ce.val
+              else if (!secrets && !isSecretField(ce.property)) ce.val
+              else null
+        ).toDynamic()
+}

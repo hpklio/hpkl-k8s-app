@@ -1,0 +1,27 @@
+name: build
+on: [pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download pkl-lang
+        run: | 
+          curl -L -o pkl https://github.com/apple/pkl/releases/download/0.25.3/pkl-linux-amd64
+          chmod +x pkl
+          cp pkl /usr/bin/pkl          
+      - name: Download hpkl
+        run:  |
+          curl -L -o hpkl.tar.gz https://github.com/hpklio/hpkl/releases/download/v0.1.0/hpkl_Linux_x86_64.tar.gz
+          tar -xzvf hpkl.tar.gz
+          chmod +x hpkl
+          cp hpkl /usr/bin/hpkl 
+      - name: Build
+        run: |
+          pkl project resolve
+          hpkl build          

@@ -1,0 +1,302 @@
+examples {
+  ["application-name"] {
+    new {
+      applicationName = "RandName"
+      resourcesRequests {
+        cpu = 500
+        memory = 128.mib
+      }
+      resourcesLimits {
+        cpu = 500
+        memory = 128.mib
+      }
+      imageName = ""
+      containerConfigPath = "/app/config"
+      containerSecretPath = "/app/secret"
+      configFileName = "application.yaml"
+      secretFileName = "application.secrets.yaml"
+      configRenderer {
+        converters {}
+        extension = "yaml"
+        mode = "compat"
+        indentWidth = 2
+        omitNullProperties = true
+        isStream = false
+      }
+      config = null
+      configMixin = null
+      deployment {
+        apiVersion = "apps/v1"
+        kind = "Deployment"
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels {
+            ["name"] = "RandName"
+            ["app.kubernetes.io/name"] = "RandName"
+          }
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "RandName"
+          namespace = null
+          clusterName = null
+        }
+        spec {
+          template {
+            metadata = null
+            spec {
+              dnsPolicy = null
+              nodeName = null
+              terminationGracePeriodSeconds = null
+              dnsConfig = null
+              hostNetwork = null
+              readinessGates = null
+              serviceAccountName = null
+              imagePullSecrets = null
+              priorityClassName = null
+              hostAliases = null
+              securityContext = null
+              preemptionPolicy = null
+              nodeSelector = null
+              hostname = null
+              runtimeClassName = null
+              tolerations = null
+              automountServiceAccountToken = null
+              schedulingGates = null
+              schedulerName = null
+              activeDeadlineSeconds = null
+              os = null
+              setHostnameAsFQDN = null
+              enableServiceLinks = null
+              overhead = null
+              hostIPC = null
+              topologySpreadConstraints = null
+              volumes {}
+              ephemeralContainers = null
+              serviceAccount = null
+              priority = null
+              restartPolicy = null
+              shareProcessNamespace = null
+              hostUsers = null
+              resourceClaims = null
+              subdomain = null
+              containers {
+                new {
+                  volumeDevices = null
+                  image = ""
+                  imagePullPolicy = "Always"
+                  livenessProbe = null
+                  stdin = null
+                  terminationMessagePolicy = null
+                  terminationMessagePath = null
+                  workingDir = null
+                  resources {
+                    claims = null
+                    requests {
+                      ["cpu"] = "500m"
+                      ["memory"] = 128.mib
+                    }
+                    limits {
+                      ["cpu"] = "500m"
+                      ["memory"] = 128.mib
+                    }
+                  }
+                  securityContext = null
+                  startupProbe = null
+                  env = null
+                  ports = null
+                  restartPolicy = null
+                  command = null
+                  volumeMounts {}
+                  args = null
+                  lifecycle = null
+                  name = "app"
+                  tty = null
+                  readinessProbe = null
+                  resizePolicy = null
+                  stdinOnce = null
+                  envFrom = null
+                }
+              }
+              initContainers = null
+              affinity = null
+              hostPID = null
+            }
+          }
+          paused = null
+          replicas = null
+          revisionHistoryLimit = null
+          selector {
+            matchExpressions = null
+            matchLabels = null
+          }
+          minReadySeconds = null
+          strategy = null
+          progressDeadlineSeconds = null
+        }
+        status = null
+      }
+      ingress = null
+      service = null
+      serviceAccount = null
+      additional {}
+      configMap = null
+      secret = null
+    }
+  }
+  ["Resources"] {
+    new {
+      applicationName = "app"
+      resourcesRequests {
+        cpu = 722
+        memory = 122.mib
+      }
+      resourcesLimits = null
+      imageName = ""
+      containerConfigPath = "/app/config"
+      containerSecretPath = "/app/secret"
+      configFileName = "application.yaml"
+      secretFileName = "application.secrets.yaml"
+      configRenderer {
+        converters {}
+        extension = "yaml"
+        mode = "compat"
+        indentWidth = 2
+        omitNullProperties = true
+        isStream = false
+      }
+      config = null
+      configMixin = null
+      deployment {
+        apiVersion = "apps/v1"
+        kind = "Deployment"
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels {
+            ["name"] = "app"
+            ["app.kubernetes.io/name"] = "app"
+          }
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "app"
+          namespace = null
+          clusterName = null
+        }
+        spec {
+          template {
+            metadata = null
+            spec {
+              dnsPolicy = null
+              nodeName = null
+              terminationGracePeriodSeconds = null
+              dnsConfig = null
+              hostNetwork = null
+              readinessGates = null
+              serviceAccountName = null
+              imagePullSecrets = null
+              priorityClassName = null
+              hostAliases = null
+              securityContext = null
+              preemptionPolicy = null
+              nodeSelector = null
+              hostname = null
+              runtimeClassName = null
+              tolerations = null
+              automountServiceAccountToken = null
+              schedulingGates = null
+              schedulerName = null
+              activeDeadlineSeconds = null
+              os = null
+              setHostnameAsFQDN = null
+              enableServiceLinks = null
+              overhead = null
+              hostIPC = null
+              topologySpreadConstraints = null
+              volumes {}
+              ephemeralContainers = null
+              serviceAccount = null
+              priority = null
+              restartPolicy = null
+              shareProcessNamespace = null
+              hostUsers = null
+              resourceClaims = null
+              subdomain = null
+              containers {
+                new {
+                  volumeDevices = null
+                  image = ""
+                  imagePullPolicy = "Always"
+                  livenessProbe = null
+                  stdin = null
+                  terminationMessagePolicy = null
+                  terminationMessagePath = null
+                  workingDir = null
+                  resources {
+                    claims = null
+                    requests {
+                      ["cpu"] = "722m"
+                      ["memory"] = 122.mib
+                    }
+                    limits = null
+                  }
+                  securityContext = null
+                  startupProbe = null
+                  env = null
+                  ports = null
+                  restartPolicy = null
+                  command = null
+                  volumeMounts {}
+                  args = null
+                  lifecycle = null
+                  name = "app"
+                  tty = null
+                  readinessProbe = null
+                  resizePolicy = null
+                  stdinOnce = null
+                  envFrom = null
+                }
+              }
+              initContainers = null
+              affinity = null
+              hostPID = null
+            }
+          }
+          paused = null
+          replicas = null
+          revisionHistoryLimit = null
+          selector {
+            matchExpressions = null
+            matchLabels = null
+          }
+          minReadySeconds = null
+          strategy = null
+          progressDeadlineSeconds = null
+        }
+        status = null
+      }
+      ingress = null
+      service = null
+      serviceAccount = null
+      additional {}
+      configMap = null
+      secret = null
+    }
+  }
+}
