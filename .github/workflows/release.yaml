@@ -1,20 +1,26 @@
-name: build
-on: [pull_request]
+name: GoReleaser
+
+on:
+  push:
+    tags:
+      - 'v*'
 
 permissions:
-  contents: read
+  contents: write
+  packages: write
+  
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  build:
+  goreleaser:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - name: Create bin dir
         run: | 
           mkdir -p $HOME/.local/bin
           echo "$HOME/.local/bin" >> $GITHUB_PATH
-
       - name: Download pkl-lang
         run: | 
           curl -L -o pkl https://github.com/apple/pkl/releases/download/0.25.3/pkl-linux-amd64
@@ -26,7 +32,8 @@ jobs:
           tar -xzvf hpkl.tar.gz
           chmod +x hpkl
           cp hpkl $HOME/.local/bin/
-      - name: Build
+      - name: Build & Publish
         run: |
           pkl project resolve
-          hpkl build          
+          hpkl build
+          hpkl publish
