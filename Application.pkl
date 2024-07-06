@@ -1,13 +1,14 @@
 open module hpkl.app
 
-import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/K8sResource.pkl"
-import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/K8sObject.pkl"
-import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/api/apps/v1/Deployment.pkl"
-import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/api/core/v1/ConfigMap.pkl"
-import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/api/core/v1/Secret.pkl"
-import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/api/core/v1/Service.pkl"
-import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/api/core/v1/ServiceAccount.pkl"
-import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/api/networking/v1/Ingress.pkl"
+// import "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1#/K8sResource.pkl"
+import "@k8s/K8sResource.pkl"
+import "@k8s/K8sObject.pkl"
+import "@k8s/api/apps/v1/Deployment.pkl"
+import "@k8s/api/core/v1/ConfigMap.pkl"
+import "@k8s/api/core/v1/Secret.pkl"
+import "@k8s/api/core/v1/Service.pkl"
+import "@k8s/api/core/v1/ServiceAccount.pkl"
+import "@k8s/api/networking/v1/Ingress.pkl"
 
 import "renderer.pkl"
 
