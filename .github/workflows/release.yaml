@@ -34,7 +34,7 @@ jobs:
           cp hpkl $HOME/.local/bin/
       - name: Build & Publish
         run: |
-          pkl project resolve
-          hpkl build
+          hpkl resolve
+          hpkl package
           hpkl login -l ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ghcr.io
           hpkl publish
