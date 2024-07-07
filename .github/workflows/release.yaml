@@ -43,5 +43,5 @@ jobs:
         run: |
           hpkl resolve
           hpkl package
-          hpkl login -l ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ghcr.io
+          hpkl login -l ${{ github.actor }} -p ${{ secrets.PUBLISH_TOKEN }} ghcr.io
           hpkl publish
