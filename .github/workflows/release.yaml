@@ -39,7 +39,7 @@ jobs:
           cp hpkl $HOME/.local/bin/
       - name: Build & Publish
         env:
-          PROJECT_VERSION=${{ steps.vars.outputs.tag }}      
+          PROJECT_VERSION: ${{ steps.vars.outputs.tag }}      
         run: |
           hpkl resolve
           hpkl package
