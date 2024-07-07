@@ -1,9 +1,12 @@
 amends "pkl:Project"
 
+local envVersion = read?("env:PROJECT_VERSION") ?? "0.1.0-SNAPSHOT"
+local projectVersion = if (envVersion.startsWith("v")) envVersion.substring(1, envVersion.length) else envVersion
+
 package {
   name = "app"
   baseUri = "package://ghcr.io/hpklio/app"
-  version = "0.1.0"
+  version = projectVersion
   packageZipUrl = "https://github/hpklio/app/releases/\(version)/app-\(version).zip"
 }
 

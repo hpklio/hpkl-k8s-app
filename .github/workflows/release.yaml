@@ -13,10 +13,15 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  goreleaser:
+  hpkl:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set version
+        id: vars
+        run: |
+          [[ "$GITHUB_REF" =~ ^refs/tags/v.*$ ]] && echo "tag=${GITHUB_REF#refs/*/v}" >> $GITHUB_OUTPUT || echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT      
       - name: Create bin dir
         run: | 
           mkdir -p $HOME/.local/bin
@@ -33,6 +38,8 @@ jobs:
           chmod +x hpkl
           cp hpkl $HOME/.local/bin/
       - name: Build & Publish
+        env:
+          PROJECT_VERSION=${{ steps.vars.outputs.tag }}      
         run: |
           hpkl resolve
           hpkl package
