@@ -12,7 +12,7 @@ import "@k8s/api/networking/v1/Ingress.pkl"
 
 import "renderer.pkl"
 
-applicationName = "app"
+applicationName: K8sResource.Rfc1123Label = "app"
 
 class K8SResource {
   cpu: UInt32 = 500
@@ -21,6 +21,15 @@ class K8SResource {
 
 resourcesRequests: K8SResource = new {}
 resourcesLimits: K8SResource? = resourcesRequests
+
+selectorLabels {
+  ["name"] = applicationName
+  ["app.kubernetes.io/name"] = applicationName
+}
+
+commonLabels {
+  ...selectorLabels
+}
 
 imageName = ""
 
@@ -37,12 +46,22 @@ deployment: Deployment = new {
   metadata {
     name = applicationName
     labels {
-      ["name"] = applicationName
-      ["app.kubernetes.io/name"] = applicationName
+      ...commonLabels
     }
   }
   spec {
+    selector {
+      matchLabels {
+        ...selectorLabels
+      }
+    }
     template {
+      metadata {
+        name = applicationName
+        labels {
+          ...commonLabels
+        }
+      }
       spec {
         when (module.serviceAccount != null) {
           serviceAccountName = module.serviceAccount.metadata.name
@@ -124,7 +143,7 @@ configMap = if (config != null) new ConfigMap {
   metadata {
     name = "\(applicationName)-config"
     labels {
-      ["app.kubernetes.io/name"] = "\(applicationName)-config"
+      ...commonLabels
     }
   }
   data {
@@ -140,7 +159,7 @@ secret = if (config != null) new Secret {
   metadata {
     name = "\(applicationName)-secrets"
     labels {
-      ["app.kubernetes.io/name"] = "\(applicationName)-secrets"
+      ...commonLabels
     }
   }
   data {
