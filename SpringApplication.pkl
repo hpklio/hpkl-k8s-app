@@ -2,7 +2,7 @@ open module hpkl.app.spring
 
 extends "Application.pkl"
 
-applicationName = "BaseApplication"
+applicationName = "base-application"
 
 class Controller {
   port: UInt16
@@ -20,8 +20,7 @@ service = if (grpc != null || http != null) new {
   metadata {
     name = applicationName
     labels {
-      ["name"] = applicationName
-      ["app.kubernetes.io/name"] = applicationName
+      ...module.commonLabels
     }
   }
   spec {
@@ -32,6 +31,7 @@ service = if (grpc != null || http != null) new {
           name = "http"
           port = module.http.port
           protocol = "TCP"
+          appProtocol = "http"
           targetPort = "http"
         }
       }
@@ -43,6 +43,9 @@ service = if (grpc != null || http != null) new {
           targetPort = "grpc"
         }
       }
+    }
+    selector {
+      ...module.selectorLabels
     }
   }
 } else null
@@ -136,7 +139,7 @@ serviceAccount {
   metadata {
     name = applicationName
     labels {
-      ["app.kubernetes.io/name"] = applicationName
+      ...module.commonLabels
     }
   }
 }
