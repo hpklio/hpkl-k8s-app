@@ -5,7 +5,7 @@ import "../Application.pkl"
 examples {
   ["application-name"] {
     new Application{
-      applicationName = "RandName"
+      applicationName = "example-app"
     }
   }
   ["Resources"] {
