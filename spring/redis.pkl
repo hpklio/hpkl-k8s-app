@@ -1,0 +1,60 @@
+import "../renderer.pkl"
+
+typealias ClientType =  "LETTUCE"|"JEDIS"
+
+class Config {
+    url: String?
+    host: String?
+    username: String?
+
+    @renderer.SecretField
+    password: String?
+
+    port: UInt16?
+    database: UInt16?
+
+    timeout: Duration?
+    connectTimeout: Duration?
+    
+    @renderer.NamedField{ name="client-name" }
+    clientName: String?
+
+    @renderer.NamedField{ name="client-type" }
+    clientType: ClientType?
+
+    cluster: ClusterConfig?
+    ssl: SslConfig?
+
+    jedis: JedisConfig?
+    lettuce: LettuceConfig?
+
+}
+
+class ClusterConfig {
+    nodes: Listing<String>?
+    maxRedirects: UInt16?
+}
+
+class SslConfig {
+    enabled: Boolean?
+    bundle: String?    
+}
+
+class JedisConfig {
+     pool: PoolConfig?
+}
+
+class LettuceConfig {
+    shutdownTimeout: Duration?
+    pool: PoolConfig?
+    cluster: ClusterConfig?
+}
+
+class PoolConfig {
+    enabled: Boolean?
+    maxIdle: UInt32?
+    minIdle: UInt32?
+    maxActive: UInt32?
+    maxWait: Duration?
+    timeBetweenEvictionRuns: Duration?
+}

@@ -1,0 +1,12 @@
+amends "pkl:test"
+
+import "../grpc.pkl"
+
+
+facts {
+  ["Check address verfication"] {
+    new grpc.Client{
+        address = "dns:///host"
+    }.negotiationType == "TLS"
+  }
+}
