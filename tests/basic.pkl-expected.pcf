@@ -1,7 +1,7 @@
 examples {
   ["application-name"] {
     new {
-      applicationName = "RandName"
+      applicationName = "example-app"
       resourcesRequests {
         cpu = 500
         memory = 128.mib
@@ -9,6 +9,14 @@ examples {
       resourcesLimits {
         cpu = 500
         memory = 128.mib
+      }
+      selectorLabels {
+        ["name"] = "example-app"
+        ["app.kubernetes.io/name"] = "example-app"
+      }
+      commonLabels {
+        ["name"] = "example-app"
+        ["app.kubernetes.io/name"] = "example-app"
       }
       imageName = ""
       containerConfigPath = "/app/config"
@@ -36,8 +44,8 @@ examples {
           generateName = null
           deletionTimestamp = null
           labels {
-            ["name"] = "RandName"
-            ["app.kubernetes.io/name"] = "RandName"
+            ["name"] = "example-app"
+            ["app.kubernetes.io/name"] = "example-app"
           }
           ownerReferences = null
           selfLink = null
@@ -45,13 +53,33 @@ examples {
           uid = null
           managedFields = null
           creationTimestamp = null
-          name = "RandName"
+          name = "example-app"
           namespace = null
           clusterName = null
         }
         spec {
           template {
-            metadata = null
+            metadata {
+              generation = null
+              finalizers = null
+              resourceVersion = null
+              annotations = null
+              generateName = null
+              deletionTimestamp = null
+              labels {
+                ["name"] = "example-app"
+                ["app.kubernetes.io/name"] = "example-app"
+              }
+              ownerReferences = null
+              selfLink = null
+              deletionGracePeriodSeconds = null
+              uid = null
+              managedFields = null
+              creationTimestamp = null
+              name = "example-app"
+              namespace = null
+              clusterName = null
+            }
             spec {
               dnsPolicy = null
               nodeName = null
@@ -136,7 +164,10 @@ examples {
           revisionHistoryLimit = null
           selector {
             matchExpressions = null
-            matchLabels = null
+            matchLabels {
+              ["name"] = "example-app"
+              ["app.kubernetes.io/name"] = "example-app"
+            }
           }
           minReadySeconds = null
           strategy = null
@@ -160,6 +191,14 @@ examples {
         memory = 122.mib
       }
       resourcesLimits = null
+      selectorLabels {
+        ["name"] = "app"
+        ["app.kubernetes.io/name"] = "app"
+      }
+      commonLabels {
+        ["name"] = "app"
+        ["app.kubernetes.io/name"] = "app"
+      }
       imageName = ""
       containerConfigPath = "/app/config"
       containerSecretPath = "/app/secret"
@@ -201,7 +240,27 @@ examples {
         }
         spec {
           template {
-            metadata = null
+            metadata {
+              generation = null
+              finalizers = null
+              resourceVersion = null
+              annotations = null
+              generateName = null
+              deletionTimestamp = null
+              labels {
+                ["name"] = "app"
+                ["app.kubernetes.io/name"] = "app"
+              }
+              ownerReferences = null
+              selfLink = null
+              deletionGracePeriodSeconds = null
+              uid = null
+              managedFields = null
+              creationTimestamp = null
+              name = "app"
+              namespace = null
+              clusterName = null
+            }
             spec {
               dnsPolicy = null
               nodeName = null
@@ -283,7 +342,10 @@ examples {
           revisionHistoryLimit = null
           selector {
             matchExpressions = null
-            matchLabels = null
+            matchLabels {
+              ["name"] = "app"
+              ["app.kubernetes.io/name"] = "app"
+            }
           }
           minReadySeconds = null
           strategy = null
