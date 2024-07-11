@@ -18,4 +18,10 @@ dependencies {
 
 tests {
   "tests/basic.pkl"
+  "spring/tests/kafka.pkl"
+  "spring/tests/couchbase.pkl"
+  "spring/tests/datasource.pkl"
+  "spring/tests/redis.pkl"
+  "spring/tests/flyway.pkl"
+  "spring/tests/grpc.pkl"
 }

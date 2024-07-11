@@ -1,0 +1,8 @@
+class Application {
+    name: String?
+}
+
+
+
+
+

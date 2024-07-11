@@ -1,0 +1,13 @@
+const grpcAddress = (str) -> List("static://", "dns:///", "discovery:///", "self:", "unix:").any((p) -> str.startsWith(p))
+
+class Client {
+    address: String(grpcAddress)
+    negotiationType: "TLS"| "PLAINTEXT" = "TLS"    
+}
+
+class Server {
+    port: UInt16
+    inProcessName: String?
+    address: String?
+}
+
