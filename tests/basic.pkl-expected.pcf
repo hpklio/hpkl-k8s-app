@@ -18,7 +18,6 @@ examples {
         ["name"] = "example-app"
         ["app.kubernetes.io/name"] = "example-app"
       }
-      imageName = ""
       containerConfigPath = "/app/config"
       containerSecretPath = "/app/secret"
       configFileName = "application.yaml"
@@ -30,6 +29,11 @@ examples {
         indentWidth = 2
         omitNullProperties = true
         isStream = false
+      }
+      image {
+        repository = null
+        name = "example-app"
+        tag = "latest"
       }
       config = null
       configMixin = null
@@ -119,7 +123,7 @@ examples {
               containers {
                 new {
                   volumeDevices = null
-                  image = ""
+                  image = "example-app:latest"
                   imagePullPolicy = "Always"
                   livenessProbe = null
                   stdin = null
@@ -199,7 +203,6 @@ examples {
         ["name"] = "app"
         ["app.kubernetes.io/name"] = "app"
       }
-      imageName = ""
       containerConfigPath = "/app/config"
       containerSecretPath = "/app/secret"
       configFileName = "application.yaml"
@@ -211,6 +214,11 @@ examples {
         indentWidth = 2
         omitNullProperties = true
         isStream = false
+      }
+      image {
+        repository = null
+        name = "app"
+        tag = "latest"
       }
       config = null
       configMixin = null
@@ -300,7 +308,7 @@ examples {
               containers {
                 new {
                   volumeDevices = null
-                  image = ""
+                  image = "app:latest"
                   imagePullPolicy = "Always"
                   livenessProbe = null
                   stdin = null

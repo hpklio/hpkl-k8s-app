@@ -1,22 +1,22 @@
 amends "pkl:Project"
 
-local envVersion = read?("env:PROJECT_VERSION") ?? "0.1.0-SNAPSHOT"
-local projectVersion = if (envVersion.startsWith("v")) envVersion.substring(1, envVersion.length) else envVersion
+import "project.pkl"
 
 package {
-  name = "app"
-  baseUri = "package://ghcr.io/hpklio/app"
-  version = projectVersion
-  packageZipUrl = "https://github/hpklio/app/releases/\(version)/app-\(version).zip"
+  name = project.name
+  baseUri = "package://ghcr.io/hpklio/\(name)"
+  version = project.version
+  packageZipUrl = "https://github/hpklio/\(name)/releases/\(version)/\(name)-\(version).zip"
 }
 
 dependencies {
   ["k8s"] {
-    uri = "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.0.1"
+    uri = "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.1.0"
   }
 }
 
 tests {
+  "tests/argo.pkl"
   "tests/basic.pkl"
   "spring/tests/kafka.pkl"
   "spring/tests/couchbase.pkl"

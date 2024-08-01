@@ -31,13 +31,23 @@ commonLabels {
   ...selectorLabels
 }
 
-imageName = ""
+class ImageConfig {
+  function get(): String =
+    List(repository, name + ":" + tag).filterNonNull().join("/")
+  repository: String?
+  name: String?
+  tag: String? = "latest"
+}
 
 containerConfigPath = "/app/config"
 containerSecretPath = "/app/secret"
 configFileName = "application.\(configRenderer?.extension)"
 secretFileName = "application.secrets.\(configRenderer?.extension)"
 configRenderer =  new YamlRenderer{}
+
+image: ImageConfig = new {
+  name = applicationName
+}
 
 config: Typed?
 configMixin: Mixin<Dynamic>?
@@ -69,7 +79,7 @@ deployment: Deployment = new {
         containers {
           new {
             name = "app"
-            image = imageName
+            image = module.image.get()
             imagePullPolicy = "Always"
             resources {
               requests {

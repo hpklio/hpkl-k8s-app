@@ -2,9 +2,9 @@ import "../renderer.pkl"
 
 class Config {
     connectionString: String
-    
+
     username: String
-    
+
     @renderer.SecretField
     password: String
 
@@ -20,7 +20,7 @@ class EnvConfig {
 class IoConfig {
     minEndpoints: UInt16?
     maxEndpoints: UInt16?
-    idleHttpConnectionTimeout: Duration?    
+    idleHttpConnectionTimeout: Duration?
 }
 
 class SslConfig {

@@ -1,0 +1,83 @@
+open module hpkl.argo.Application
+
+import "@k8s/apimachinery/pkg/apis/meta/v1/ObjectMeta.pkl"
+import "@k8s/K8sObject.pkl"
+
+import "ArgoApplicationCRD.pkl"
+
+class NotificationsConfig {
+  slackChannel: String(startsWith("#"))?
+}
+
+class SourceConfig {
+  repoURL: String(endsWith(".git"))
+  path: String
+  targetRevision: String = "HEAD"
+}
+
+class Config {
+  environment: String
+  app: ObjectMeta?
+  notifications: NotificationsConfig?
+  project: String
+  cluster: ObjectMeta
+  source: SourceConfig
+  autoSync: Boolean = false
+  syncWave: UInt8 = 1
+  pluginEnv: Listing<ArgoApplicationCRD.Env>
+}
+
+config: Config
+
+argo: ArgoApplicationCRD = new {
+  metadata = new {
+    name = config.app.name
+    namespace = config.app.namespace
+    annotations = new {
+      ["argocd.argoproj.io/sync-wave"] = "\(config.syncWave)"
+      when (config.notifications != null) {
+        ["notifications.argoproj.io/subscribe.on-deployed.slack"] = config.notifications.slackChannel!!
+        ["notifications.argoproj.io/subscribe.on-health-degraded.slack"] = config.notifications.slackChannel!!
+        ["notifications.argoproj.io/subscribe.app-sync-failed.slack"] = config.notifications.slackChannel!!
+        ["notifications.argoproj.io/subscribe.app-sync-status-unknown.slack"] = config.notifications.slackChannel!!
+      }
+    }
+  }
+  spec = new {
+    project = config.project
+    source = new {
+      repoURL = config.source.repoURL
+      path = config.source.path
+      targetRevision = config.source.targetRevision
+      plugin = new {
+        name = "hpkl"
+        env = new {
+          new {
+            name = "ENV"
+            value = config.environment
+          }
+          ...config.pluginEnv
+        }
+      }
+    }
+    destination = new {
+      namespace = config.cluster.namespace
+      name = config.cluster.name
+    }
+    when (config.autoSync) {
+      syncPolicy = new {
+        automated = new {
+          prune = false
+          selfHeal = true
+        }
+      }
+    }
+  }
+}
+
+output {
+  value = List(argo)
+  renderer = (K8sObject.output.renderer as YamlRenderer) {
+    isStream = true
+  }
+}

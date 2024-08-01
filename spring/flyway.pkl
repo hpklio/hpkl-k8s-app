@@ -29,7 +29,7 @@ class Config {
 
     @renderer.SecretField
     password: String?
-    
+
     driverClassName: String?
     url: String?
     initSqls: Listing<String>?
@@ -57,5 +57,5 @@ class Config {
     skipExecutingMigrations: Boolean?
     ignoreMigrationPatterns: Listing<String>?
     detectEncoding: Boolean?
-    communityDbSupportEnabled: Boolean?    
+    communityDbSupportEnabled: Boolean?
 }

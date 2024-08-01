@@ -10,13 +10,13 @@ class Config {
     admin: AdminConfig?
     streams: StreamsConfig?
     listener: ListenerConfig?
-    ssl: SslConfig?    
+    ssl: SslConfig?
 
     @renderer.SecretField
     jaas: JaasConfig?
 
     template: TemplateConfig?
-    security: SecurityConfig?    
+    security: SecurityConfig?
     retry: RetryConfig?
 }
 
@@ -104,7 +104,7 @@ class ListenerConfig {
     immediateStop: Boolean?
     autoStartup: Boolean?
     changeConsumerThreadName: Boolean?
-    observationEnabled: Boolean?    
+    observationEnabled: Boolean?
 }
 
 
@@ -121,7 +121,7 @@ class SslConfig {
     keyStoreCertificateChain: String?
     keyStoreKey: String?
     keyStoreLocation: String?
-    
+
     @renderer.SecretField
     keyStorePassword: String?
 
@@ -139,7 +139,7 @@ class SslConfig {
 class JaasConfig {
     enabled: Boolean?
     loginModule: String?
-    options: Mapping<String, String>?    
+    options: Mapping<String, String>?
 }
 
 class TemplateConfig {

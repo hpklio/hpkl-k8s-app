@@ -3,9 +3,12 @@ import "../renderer.pkl"
 class Hikari {
     @renderer.NamedField{ name="connection-test-query" }
     connectionTestQuery: String?
-    
+
+    @renderer.NamedField{ name="keepalive-time" }
+    keepaliveTime: UInt16 = 1
+
     @renderer.NamedField{ name="minimum-idle" }
-    minimumIdle: UInt16 = 1  
+    minimumIdle: UInt16 = 1
 
     @renderer.NamedField{ name="maximum-pool-size" }
     maximumPoolSize: UInt16 = 5

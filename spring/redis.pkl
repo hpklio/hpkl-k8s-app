@@ -15,7 +15,7 @@ class Config {
 
     timeout: Duration?
     connectTimeout: Duration?
-    
+
     @renderer.NamedField{ name="client-name" }
     clientName: String?
 
@@ -27,7 +27,6 @@ class Config {
 
     jedis: JedisConfig?
     lettuce: LettuceConfig?
-
 }
 
 class ClusterConfig {
@@ -37,11 +36,11 @@ class ClusterConfig {
 
 class SslConfig {
     enabled: Boolean?
-    bundle: String?    
+    bundle: String?
 }
 
 class JedisConfig {
-     pool: PoolConfig?
+    pool: PoolConfig?
 }
 
 class LettuceConfig {
