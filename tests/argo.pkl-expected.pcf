@@ -1,0 +1,114 @@
+examples {
+  ["application"] {
+    new {
+      config {
+        environment = "test"
+        app {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels = null
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "test"
+          namespace = "default"
+          clusterName = null
+        }
+        notifications = null
+        project = "test"
+        cluster {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels = null
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "in-cluster"
+          namespace = "argocd"
+          clusterName = null
+        }
+        source {
+          repoURL = "https://github.com/hpklio/app.git"
+          path = "/"
+          targetRevision = "HEAD"
+        }
+        autoSync = false
+        syncWave = 1
+        pluginEnv {}
+      }
+      argo {
+        apiVersion = "argoproj.io/v1alpha1"
+        kind = "Application"
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations {
+            ["argocd.argoproj.io/sync-wave"] = "1"
+          }
+          generateName = null
+          deletionTimestamp = null
+          labels = null
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "test"
+          namespace = "default"
+          clusterName = null
+        }
+        operation = null
+        spec {
+          destination {
+            name = "in-cluster"
+            namespace = "argocd"
+            server = null
+          }
+          ignoreDifferences = null
+          info = null
+          project = "test"
+          revisionHistoryLimit = null
+          source {
+            chart = null
+            directory = null
+            helm = null
+            kustomize = null
+            path = "/"
+            plugin {
+              env {
+                new {
+                  name = "ENV"
+                  value = "test"
+                }
+              }
+              name = "hpkl"
+              parameters = null
+            }
+            ref = null
+            repoURL = "https://github.com/hpklio/app.git"
+            targetRevision = "HEAD"
+          }
+          sources = null
+          syncPolicy = null
+        }
+        status = null
+      }
+    }
+  }
+}

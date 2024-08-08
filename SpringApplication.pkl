@@ -74,7 +74,7 @@ deployment {
         containers {
           [0] {
             name = "app"
-            imagePullPolicy = "Always"
+            imagePullPolicy = "IfNotPresent"
             terminationMessagePolicy = "FallbackToLogsOnError"
             env {
               when (configPaths != null && !configPaths.isEmpty) {

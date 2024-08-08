@@ -2,7 +2,7 @@ const grpcAddress = (str) -> List("static://", "dns:///", "discovery:///", "self
 
 class Client {
     address: String(grpcAddress)
-    negotiationType: "TLS"| "PLAINTEXT" = "TLS"    
+    negotiationType: "TLS"| "PLAINTEXT" = "TLS"
 }
 
 class Server {
@@ -10,4 +10,3 @@ class Server {
     inProcessName: String?
     address: String?
 }
-
