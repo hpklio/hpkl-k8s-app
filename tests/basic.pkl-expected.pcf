@@ -31,6 +31,7 @@ examples {
         isStream = false
       }
       image {
+        fullName = "example-app:latest"
         repository = null
         name = "example-app"
         tag = "latest"
@@ -216,6 +217,7 @@ examples {
         isStream = false
       }
       image {
+        fullName = "app:latest"
         repository = null
         name = "app"
         tag = "latest"
