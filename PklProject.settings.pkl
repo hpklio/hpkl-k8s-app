@@ -1,2 +1,2 @@
-const name = "app"
+const name = "hpkl-k8s-app"
 const version = (read?("env:PROJECT_VERSION") ?? "0.1.0-SNAPSHOT").replaceFirst(Regex(#"^v"#), "")
