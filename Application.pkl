@@ -32,8 +32,7 @@ commonLabels {
 }
 
 class ImageConfig {
-  function get(): String =
-    List(repository, name + ":" + tag).filterNonNull().join("/")
+  fullName: String = List(repository, name + ":" + tag).filterNonNull().join("/")
   repository: String?
   name: String?
   tag: String? = "latest"
@@ -79,7 +78,7 @@ deployment: Deployment = new {
         containers {
           new {
             name = "app"
-            image = module.image.get()
+            image = module.image.fullName
             imagePullPolicy = "Always"
             resources {
               requests {
