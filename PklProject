@@ -1,6 +1,6 @@
 amends "pkl:Project"
 
-import "project.pkl"
+import "PklProject.settings.pkl" as project
 
 package {
   name = project.name
