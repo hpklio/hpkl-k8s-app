@@ -11,11 +11,11 @@ examples {
         memory = 128.mib
       }
       selectorLabels {
-        ["name"] = "example-app"
+        ["app"] = "example-app"
         ["app.kubernetes.io/name"] = "example-app"
       }
       commonLabels {
-        ["name"] = "example-app"
+        ["app"] = "example-app"
         ["app.kubernetes.io/name"] = "example-app"
       }
       containerConfigPath = "/app/config"
@@ -49,7 +49,7 @@ examples {
           generateName = null
           deletionTimestamp = null
           labels {
-            ["name"] = "example-app"
+            ["app"] = "example-app"
             ["app.kubernetes.io/name"] = "example-app"
           }
           ownerReferences = null
@@ -72,7 +72,7 @@ examples {
               generateName = null
               deletionTimestamp = null
               labels {
-                ["name"] = "example-app"
+                ["app"] = "example-app"
                 ["app.kubernetes.io/name"] = "example-app"
               }
               ownerReferences = null
@@ -170,7 +170,7 @@ examples {
           selector {
             matchExpressions = null
             matchLabels {
-              ["name"] = "example-app"
+              ["app"] = "example-app"
               ["app.kubernetes.io/name"] = "example-app"
             }
           }
@@ -197,11 +197,11 @@ examples {
       }
       resourcesLimits = null
       selectorLabels {
-        ["name"] = "app"
+        ["app"] = "app"
         ["app.kubernetes.io/name"] = "app"
       }
       commonLabels {
-        ["name"] = "app"
+        ["app"] = "app"
         ["app.kubernetes.io/name"] = "app"
       }
       containerConfigPath = "/app/config"
@@ -235,7 +235,7 @@ examples {
           generateName = null
           deletionTimestamp = null
           labels {
-            ["name"] = "app"
+            ["app"] = "app"
             ["app.kubernetes.io/name"] = "app"
           }
           ownerReferences = null
@@ -258,7 +258,7 @@ examples {
               generateName = null
               deletionTimestamp = null
               labels {
-                ["name"] = "app"
+                ["app"] = "app"
                 ["app.kubernetes.io/name"] = "app"
               }
               ownerReferences = null
@@ -353,7 +353,7 @@ examples {
           selector {
             matchExpressions = null
             matchLabels {
-              ["name"] = "app"
+              ["app"] = "app"
               ["app.kubernetes.io/name"] = "app"
             }
           }
