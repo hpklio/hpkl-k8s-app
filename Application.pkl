@@ -23,7 +23,7 @@ resourcesRequests: K8SResource = new {}
 resourcesLimits: K8SResource? = resourcesRequests
 
 selectorLabels {
-  ["name"] = applicationName
+  ["app"] = applicationName
   ["app.kubernetes.io/name"] = applicationName
 }
 
