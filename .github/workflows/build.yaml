@@ -19,13 +19,13 @@ jobs:
         run: | 
           curl -L -o pkl https://github.com/apple/pkl/releases/download/0.26.1/pkl-linux-amd64
           chmod +x pkl
-          cp pkl $HOME/.local/bin/
+          mv pkl $HOME/.local/bin/
       - name: Download hpkl
         run:  |
           curl -L -o hpkl.tar.gz https://github.com/hpklio/hpkl/releases/download/v0.2.0/hpkl_Linux_x86_64.tar.gz
           tar -xzvf hpkl.tar.gz
           chmod +x hpkl
-          cp hpkl $HOME/.local/bin/
+          mv hpkl $HOME/.local/bin/
       - name: Build
         run: |
           hpkl project resolve
