@@ -37,6 +37,7 @@ jobs:
           tar -xzvf hpkl.tar.gz
           chmod +x hpkl
           mv hpkl $HOME/.local/bin/
+          rm hpkl.tar.gz
       - name: Build & Publish
         env:
           PROJECT_VERSION: ${{ steps.vars.outputs.tag }}      
