@@ -180,7 +180,9 @@ secret = if (config != null) new Secret {
 output {
   renderer = new YamlRenderer {
     isStream = true
-    converters = (K8sObject.output.renderer as YamlRenderer).converters
+    converters = ((K8sObject.output.renderer as YamlRenderer).converters) {
+      [Duration] = (duration: Duration) -> duration.isoString
+    }
   }
   value = (List(configMap, deployment, ingress, secret, service, serviceAccount) + additional?.toMap().values.toList()).filterNonNull()
 }
