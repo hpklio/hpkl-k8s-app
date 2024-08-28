@@ -42,7 +42,12 @@ containerConfigPath = "/app/config"
 containerSecretPath = "/app/secret"
 configFileName = "application.\(configRenderer?.extension)"
 secretFileName = "application.secrets.\(configRenderer?.extension)"
-configRenderer =  new YamlRenderer{}
+
+hidden configRenderer =  new YamlRenderer{
+  converters {
+    [Duration] = (d: Duration) -> d.isoString    
+  }
+}
 
 image: ImageConfig = new {
   name = applicationName

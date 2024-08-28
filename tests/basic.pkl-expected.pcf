@@ -22,14 +22,6 @@ examples {
       containerSecretPath = "/app/secret"
       configFileName = "application.yaml"
       secretFileName = "application.secrets.yaml"
-      configRenderer {
-        converters {}
-        extension = "yaml"
-        mode = "compat"
-        indentWidth = 2
-        omitNullProperties = true
-        isStream = false
-      }
       image {
         fullName = "example-app:latest"
         repository = null
@@ -208,14 +200,6 @@ examples {
       containerSecretPath = "/app/secret"
       configFileName = "application.yaml"
       secretFileName = "application.secrets.yaml"
-      configRenderer {
-        converters {}
-        extension = "yaml"
-        mode = "compat"
-        indentWidth = 2
-        omitNullProperties = true
-        isStream = false
-      }
       image {
         fullName = "app:latest"
         repository = null

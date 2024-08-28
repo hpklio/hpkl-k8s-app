@@ -29,4 +29,13 @@ facts {
       resourcesLimits  = null
     }.deployment.spec.template.spec.containers[0].resources.limits == null
   }
+  ["Has configRenderer"] {
+    new Application{
+      resourcesRequests {
+        cpu = 722
+        memory = 122.mib
+      }
+      resourcesLimits  = null
+    }.configRenderer.converters.keys.contains(Duration)
+  }
 }
