@@ -12,6 +12,9 @@ class Hikari {
 
     @renderer.NamedField{ name="maximum-pool-size" }
     maximumPoolSize: UInt16 = 5
+
+    @renderer.NamedField{ name="data-source-properties" }
+    dataSourceProperties: Dynamic?
 }
 
 typealias InitializationMode = "never"|"always"
