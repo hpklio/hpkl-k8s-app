@@ -1,0 +1,188 @@
+open module hpkl.app.frontend
+
+extends "Application.pkl"
+
+applicationName = "nginx-application"
+
+healthcheckPath = "/healthcheck.txt"
+
+resourcesRequests {
+  cpu = 100
+  memory = 128.mib
+}
+
+class NginxMetrcisExporter {
+  image: ImageConfig
+  port: UInt16
+  enabled: Boolean
+  resources: K8SResource
+}
+
+exporter : NginxMetrcisExporter? = new {
+  image {
+     name = "nginx/nginx-prometheus-exporter"
+     tag = "1.3.0"
+  }
+  port = 9113
+  enabled = true
+  resources = new {
+    cpu = 100
+    memory = 100.mib
+  }
+}
+
+nginxPort : UInt16 = 8080
+
+configRenderer =  new JsonRenderer {
+  converters {
+    [Duration] = (d: Duration) -> d.isoString    
+  }
+}
+
+configFileName = "config.\(configRenderer?.extension)"
+
+service =  new {
+  metadata {
+    name = applicationName
+    labels {
+      ...module.commonLabels
+    }
+  }
+  spec {
+    type = "ClusterIP"
+    ports {
+        new {
+          name = "http"
+          port = module.nginxPort
+          protocol = "TCP"
+          appProtocol = "http"
+          targetPort = "http"
+        }
+    }
+    selector {
+      ...module.selectorLabels
+    }
+  }
+}
+
+deployment {
+  spec {
+    replicas = 2
+    revisionHistoryLimit = 2
+    minReadySeconds = 10
+    strategy {
+      type = "RollingUpdate"
+      rollingUpdate {
+        maxSurge = 1
+        maxUnavailable = 0
+      }
+    }
+    template {
+      metadata {
+        annotations {
+          when (module.exporter?.enabled ?? false) {
+            ["prometheus.io/scrape"] = "true"
+            ["prometheus.io/port"] = exporter.port.toString()
+          }
+        }
+      }
+      spec {
+        containers {
+          [0] {
+            name = "nginx"
+            imagePullPolicy = "IfNotPresent"
+            terminationMessagePolicy = "FallbackToLogsOnError"
+            ports {
+              new {
+                name = "http"
+                containerPort = module.nginxPort
+              }
+            }
+            startupProbe {
+              httpGet {
+                path = module.healthcheckPath
+                port = "http"
+              }
+              initialDelaySeconds = 5
+              periodSeconds = 5
+              successThreshold = 1
+              failureThreshold = 1
+            }
+            livenessProbe {
+              httpGet {
+                path = module.healthcheckPath
+                port = "http"
+              }
+              initialDelaySeconds = 5
+              periodSeconds = 5
+              successThreshold = 1
+              failureThreshold = 1
+            }
+            readinessProbe {
+              httpGet {
+                path = module.healthcheckPath
+                port = "http"
+              }
+              initialDelaySeconds = 5
+              periodSeconds = 5
+              successThreshold = 1
+              failureThreshold = 1
+            }
+          }
+          when (module.exporter?.enabled ?? false) {
+            new {
+              name = "nginx-exporter"
+              imagePullPolicy ="IfNotPresent"
+              image = module.exporter.image.fullName
+              ports {
+                new {
+                  name = "exporter"
+                  containerPort = module.exporter.port
+                }
+              }
+              resources {
+                requests {
+                  ["cpu"] = "\(module.exporter.resources.cpu)m"
+                  ["memory"] = module.exporter.resources.memory.toUnit("mib")
+                }
+              }
+              startupProbe {
+                httpGet {
+                  path = "/"
+                  port = "exporter"
+                }
+                initialDelaySeconds = 5
+                periodSeconds = 5
+                successThreshold = 1
+                failureThreshold = 1
+              }
+              livenessProbe {
+                httpGet {
+                  path = "/"
+                  port = "exporter"
+                }
+                initialDelaySeconds = 5
+                periodSeconds = 5
+                successThreshold = 1
+                failureThreshold = 1
+              }
+              readinessProbe {
+                httpGet {
+                  path = "/"
+                  port = "exporter"
+                }
+                initialDelaySeconds = 5
+                periodSeconds = 5
+                successThreshold = 1
+                failureThreshold = 1
+              }
+              args {
+                "-nginx.scrape-uri=http://localhost:\(module.nginxPort)/status"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
