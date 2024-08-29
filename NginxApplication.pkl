@@ -11,14 +11,14 @@ resourcesRequests {
   memory = 128.mib
 }
 
-class NginxMetrcisExporter {
+class NginxMetricsExporter {
   image: ImageConfig
   port: UInt16
   enabled: Boolean
   resources: K8SResource
 }
 
-exporter : NginxMetrcisExporter? = new {
+exporter : NginxMetricsExporter? = new {
   image {
      name = "nginx/nginx-prometheus-exporter"
      tag = "1.3.0"
