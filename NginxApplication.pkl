@@ -2,6 +2,8 @@ open module hpkl.app.frontend
 
 extends "Application.pkl"
 
+import "@k8s/K8sObject.pkl"
+
 applicationName = "nginx-application"
 
 healthcheckPath = "/healthcheck.txt"
@@ -40,6 +42,11 @@ configRenderer =  new JsonRenderer {
 }
 
 configFileName = "config.\(configRenderer?.extension)"
+
+secret = null
+
+ingressHost: K8sObject.Rfc1123Hostname?
+ingressClassName = "nginx"
 
 service =  new {
   metadata {
@@ -178,6 +185,37 @@ deployment {
               }
               args {
                 "--nginx.scrape-uri=http://127.0.0.1:\(module.nginxPort)/status"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+ingress {
+  metadata {
+    name = module.applicationName
+  }
+  spec {
+    ingressClassName = module.ingressClassName
+
+    rules = new {
+      new {
+        host = module.ingressHost
+        http = new {
+          paths = new {
+            new {
+              path = "/"
+              pathType = "Prefix"
+              backend = new {
+                service = new {
+                  port = new {
+                    number = module.nginxPort
+                  }
+                  name = module.applicationName
+                }
               }
             }
           }

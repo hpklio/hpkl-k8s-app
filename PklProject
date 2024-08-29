@@ -11,13 +11,14 @@ package {
 
 dependencies {
   ["k8s"] {
-    uri = "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.1.0"
+    uri = "package://pkg.pkl-lang.org/pkl-k8s/k8s@1.1.1"
   }
 }
 
 tests {
   "tests/argo.pkl"
   "tests/basic.pkl"
+  "tests/nginx.pkl"
   "spring/tests/kafka.pkl"
   "spring/tests/couchbase.pkl"
   "spring/tests/datasource.pkl"

@@ -1,0 +1,11 @@
+amends "pkl:test"
+
+import "../NginxApplication.pkl"
+
+examples {
+  ["application"] {
+    new NginxApplication {
+        ingressHost = "nginx.example.com"
+    }
+  }
+}
