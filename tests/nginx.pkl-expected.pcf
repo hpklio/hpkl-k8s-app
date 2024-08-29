@@ -1,0 +1,474 @@
+examples {
+  ["application"] {
+    new {
+      applicationName = "nginx-application"
+      resourcesRequests {
+        cpu = 100
+        memory = 128.mib
+      }
+      resourcesLimits {
+        cpu = 100
+        memory = 128.mib
+      }
+      selectorLabels {
+        ["app"] = "nginx-application"
+        ["app.kubernetes.io/name"] = "nginx-application"
+      }
+      commonLabels {
+        ["app"] = "nginx-application"
+        ["app.kubernetes.io/name"] = "nginx-application"
+      }
+      containerConfigPath = "/app/config"
+      containerSecretPath = "/app/secret"
+      configFileName = "config.json"
+      secretFileName = "application.secrets.json"
+      image {
+        fullName = "nginx-application:latest"
+        repository = null
+        name = "nginx-application"
+        tag = "latest"
+      }
+      config = null
+      configMixin = null
+      deployment {
+        apiVersion = "apps/v1"
+        kind = "Deployment"
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels {
+            ["app"] = "nginx-application"
+            ["app.kubernetes.io/name"] = "nginx-application"
+          }
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "nginx-application"
+          namespace = null
+          clusterName = null
+        }
+        spec {
+          template {
+            metadata {
+              generation = null
+              finalizers = null
+              resourceVersion = null
+              annotations {
+                ["prometheus.io/scrape"] = "true"
+                ["prometheus.io/port"] = "9113"
+              }
+              generateName = null
+              deletionTimestamp = null
+              labels {
+                ["app"] = "nginx-application"
+                ["app.kubernetes.io/name"] = "nginx-application"
+              }
+              ownerReferences = null
+              selfLink = null
+              deletionGracePeriodSeconds = null
+              uid = null
+              managedFields = null
+              creationTimestamp = null
+              name = "nginx-application"
+              namespace = null
+              clusterName = null
+            }
+            spec {
+              dnsPolicy = null
+              nodeName = null
+              terminationGracePeriodSeconds = null
+              dnsConfig = null
+              hostNetwork = null
+              readinessGates = null
+              serviceAccountName = null
+              imagePullSecrets = null
+              priorityClassName = null
+              hostAliases = null
+              securityContext = null
+              preemptionPolicy = null
+              nodeSelector = null
+              hostname = null
+              runtimeClassName = null
+              tolerations = null
+              automountServiceAccountToken = null
+              schedulingGates = null
+              schedulerName = null
+              activeDeadlineSeconds = null
+              os = null
+              setHostnameAsFQDN = null
+              enableServiceLinks = null
+              overhead = null
+              hostIPC = null
+              topologySpreadConstraints = null
+              volumes {}
+              ephemeralContainers = null
+              serviceAccount = null
+              priority = null
+              restartPolicy = null
+              shareProcessNamespace = null
+              hostUsers = null
+              resourceClaims = null
+              subdomain = null
+              containers {
+                new {
+                  volumeDevices = null
+                  image = "nginx-application:latest"
+                  imagePullPolicy = "IfNotPresent"
+                  livenessProbe {
+                    terminationGracePeriodSeconds = null
+                    failureThreshold = 1
+                    periodSeconds = 5
+                    tcpSocket = null
+                    timeoutSeconds = null
+                    successThreshold = 1
+                    initialDelaySeconds = 5
+                    exec = null
+                    grpc = null
+                    httpGet {
+                      path = "/healthcheck.txt"
+                      scheme = null
+                      port = "http"
+                      host = null
+                      httpHeaders = null
+                    }
+                  }
+                  stdin = null
+                  terminationMessagePolicy = "FallbackToLogsOnError"
+                  terminationMessagePath = null
+                  workingDir = null
+                  resources {
+                    claims = null
+                    requests {
+                      ["cpu"] = "100m"
+                      ["memory"] = 128.mib
+                    }
+                    limits {
+                      ["cpu"] = "100m"
+                      ["memory"] = 128.mib
+                    }
+                  }
+                  securityContext = null
+                  startupProbe {
+                    terminationGracePeriodSeconds = null
+                    failureThreshold = 1
+                    periodSeconds = 5
+                    tcpSocket = null
+                    timeoutSeconds = null
+                    successThreshold = 1
+                    initialDelaySeconds = 5
+                    exec = null
+                    grpc = null
+                    httpGet {
+                      path = "/healthcheck.txt"
+                      scheme = null
+                      port = "http"
+                      host = null
+                      httpHeaders = null
+                    }
+                  }
+                  env = null
+                  ports {
+                    new {
+                      protocol = null
+                      hostIP = null
+                      name = "http"
+                      containerPort = 8080
+                      hostPort = null
+                    }
+                  }
+                  restartPolicy = null
+                  command = null
+                  volumeMounts {}
+                  args = null
+                  lifecycle = null
+                  name = "nginx"
+                  tty = null
+                  readinessProbe {
+                    terminationGracePeriodSeconds = null
+                    failureThreshold = 1
+                    periodSeconds = 5
+                    tcpSocket = null
+                    timeoutSeconds = null
+                    successThreshold = 1
+                    initialDelaySeconds = 5
+                    exec = null
+                    grpc = null
+                    httpGet {
+                      path = "/healthcheck.txt"
+                      scheme = null
+                      port = "http"
+                      host = null
+                      httpHeaders = null
+                    }
+                  }
+                  resizePolicy = null
+                  stdinOnce = null
+                  envFrom = null
+                }
+                new {
+                  volumeDevices = null
+                  image = "nginx/nginx-prometheus-exporter:1.3.0"
+                  imagePullPolicy = "IfNotPresent"
+                  livenessProbe {
+                    terminationGracePeriodSeconds = null
+                    failureThreshold = 1
+                    periodSeconds = 5
+                    tcpSocket = null
+                    timeoutSeconds = null
+                    successThreshold = 1
+                    initialDelaySeconds = 5
+                    exec = null
+                    grpc = null
+                    httpGet {
+                      path = "/"
+                      scheme = null
+                      port = "exporter"
+                      host = null
+                      httpHeaders = null
+                    }
+                  }
+                  stdin = null
+                  terminationMessagePolicy = null
+                  terminationMessagePath = null
+                  workingDir = null
+                  resources {
+                    claims = null
+                    requests {
+                      ["cpu"] = "100m"
+                      ["memory"] = 100.mib
+                    }
+                    limits = null
+                  }
+                  securityContext = null
+                  startupProbe {
+                    terminationGracePeriodSeconds = null
+                    failureThreshold = 1
+                    periodSeconds = 5
+                    tcpSocket = null
+                    timeoutSeconds = null
+                    successThreshold = 1
+                    initialDelaySeconds = 5
+                    exec = null
+                    grpc = null
+                    httpGet {
+                      path = "/"
+                      scheme = null
+                      port = "exporter"
+                      host = null
+                      httpHeaders = null
+                    }
+                  }
+                  env = null
+                  ports {
+                    new {
+                      protocol = null
+                      hostIP = null
+                      name = "exporter"
+                      containerPort = 9113
+                      hostPort = null
+                    }
+                  }
+                  restartPolicy = null
+                  command = null
+                  volumeMounts = null
+                  args {
+                    "--nginx.scrape-uri=http://127.0.0.1:8080/status"
+                  }
+                  lifecycle = null
+                  name = "nginx-exporter"
+                  tty = null
+                  readinessProbe {
+                    terminationGracePeriodSeconds = null
+                    failureThreshold = 1
+                    periodSeconds = 5
+                    tcpSocket = null
+                    timeoutSeconds = null
+                    successThreshold = 1
+                    initialDelaySeconds = 5
+                    exec = null
+                    grpc = null
+                    httpGet {
+                      path = "/"
+                      scheme = null
+                      port = "exporter"
+                      host = null
+                      httpHeaders = null
+                    }
+                  }
+                  resizePolicy = null
+                  stdinOnce = null
+                  envFrom = null
+                }
+              }
+              initContainers = null
+              affinity = null
+              hostPID = null
+            }
+          }
+          paused = null
+          replicas = 2
+          revisionHistoryLimit = 2
+          selector {
+            matchExpressions = null
+            matchLabels {
+              ["app"] = "nginx-application"
+              ["app.kubernetes.io/name"] = "nginx-application"
+            }
+          }
+          minReadySeconds = 10
+          strategy {
+            type = "RollingUpdate"
+            rollingUpdate {
+              maxSurge = 1
+              maxUnavailable = 0
+            }
+          }
+          progressDeadlineSeconds = null
+        }
+        status = null
+      }
+      ingress {
+        apiVersion = "networking.k8s.io/v1"
+        kind = "Ingress"
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels = null
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "nginx-application"
+          namespace = null
+          clusterName = null
+        }
+        spec {
+          defaultBackend = null
+          ingressClassName = "nginx"
+          rules {
+            new {
+              host = "nginx.example.com"
+              http {
+                paths {
+                  new {
+                    path = "/"
+                    backend {
+                      resource = null
+                      service {
+                        port {
+                          number = 8080
+                          name = null
+                        }
+                        name = "nginx-application"
+                      }
+                    }
+                    pathType = "Prefix"
+                  }
+                }
+              }
+            }
+          }
+          tls = null
+        }
+        status = null
+      }
+      service {
+        apiVersion = "v1"
+        kind = "Service"
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels {
+            ["app"] = "nginx-application"
+            ["app.kubernetes.io/name"] = "nginx-application"
+          }
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "nginx-application"
+          namespace = null
+          clusterName = null
+        }
+        spec {
+          clusterIPs = null
+          healthCheckNodePort = null
+          ipFamilyPolicy = null
+          externalIPs = null
+          sessionAffinity = null
+          trafficDistribution = null
+          allocateLoadBalancerNodePorts = null
+          ports {
+            new {
+              protocol = "TCP"
+              port = 8080
+              appProtocol = "http"
+              name = "http"
+              nodePort = null
+              targetPort = "http"
+            }
+          }
+          type = "ClusterIP"
+          loadBalancerClass = null
+          sessionAffinityConfig = null
+          ipFamilies = null
+          loadBalancerIP = null
+          externalName = null
+          loadBalancerSourceRanges = null
+          externalTrafficPolicy = null
+          selector {
+            ["app"] = "nginx-application"
+            ["app.kubernetes.io/name"] = "nginx-application"
+          }
+          publishNotReadyAddresses = null
+          internalTrafficPolicy = null
+          clusterIP = null
+          topologyKeys = null
+          ipFamily = null
+        }
+        status = null
+      }
+      serviceAccount = null
+      additional {}
+      configMap = null
+      secret = null
+      healthcheckPath = "/healthcheck.txt"
+      exporter {
+        image {
+          fullName = "nginx/nginx-prometheus-exporter:1.3.0"
+          repository = null
+          name = "nginx/nginx-prometheus-exporter"
+          tag = "1.3.0"
+        }
+        port = 9113
+        enabled = true
+        resources {
+          cpu = 100
+          memory = 100.mib
+        }
+      }
+      nginxPort = 8080
+      ingressHost = "nginx.example.com"
+      ingressClassName = "nginx"
+    }
+  }
+}

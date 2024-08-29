@@ -18,6 +18,7 @@ dependencies {
 tests {
   "tests/argo.pkl"
   "tests/basic.pkl"
+  "tests/nginx.pkl"
   "spring/tests/kafka.pkl"
   "spring/tests/couchbase.pkl"
   "spring/tests/datasource.pkl"
