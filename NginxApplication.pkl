@@ -177,7 +177,7 @@ deployment {
                 failureThreshold = 1
               }
               args {
-                "-nginx.scrape-uri=http://localhost:\(module.nginxPort)/status"
+                "--nginx.scrape-uri=http://127.0.0.1:\(module.nginxPort)/status"
               }
             }
           }
