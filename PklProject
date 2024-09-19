@@ -26,4 +26,5 @@ tests {
   "spring/tests/redis.pkl"
   "spring/tests/flyway.pkl"
   "spring/tests/grpc.pkl"
+  "spring/tests/r2dbc.pkl"
 }

@@ -1,6 +1,6 @@
 import "../renderer.pkl"
 
-class R2dbc {
+class Config {
   name: String?
   generateUniqueName: Boolean = false
   url: String?
