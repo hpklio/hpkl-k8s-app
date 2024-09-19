@@ -1,0 +1,14 @@
+amends "pkl:test"
+
+import "../SpringApplication.pkl"
+
+examples {
+  ["spring application"] {
+    new SpringApplication {
+      resourcesRequests {
+        cpu = 722
+        memory = 122.mib
+      }      
+    }
+  }
+}

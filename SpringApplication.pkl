@@ -11,23 +11,19 @@ class Controller {
 grpc: Controller? = new { port = 9090 }
 http: Controller? = new { port = 8080 }
 jmx : Controller? = new { port = 8082 }
-javaToolOptions : Listing<String> = new {}
+javaToolOptions : Listing<String> = new {
+      when (module.jmx != null) {
+        "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false"
+        "-Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false"
+        "-Dcom.sun.management.jmxremote.port=\(module.jmx.port) -Dcom.sun.management.jmxremote.rmi.port=\(module.jmx.port)"
+        "-Djava.rmi.server.hostname=127.0.0.1"
+        "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005"
+    }  
+}
 
 local configs = (configMap?.data?.keys?.map((k) -> "\(containerConfigPath)/\(k)"))
 local secrets = (secret?.data?.keys?.map((k) -> "\(containerSecretPath)/\(k)"))
 local configPaths = (configs ?? Set()) + (secrets ?? Set())
-
-
-when (module.jmx != null) {
-    javaToolOptions {
-      "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false"
-      "-Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false"
-      "-Dcom.sun.management.jmxremote.port=\(model.jmx.port) -Dcom.sun.management.jmxremote.rmi.port=\(model.jmx.port)"
-      "-Djava.rmi.server.hostname=127.0.0.1"
-      "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005"
-    }  
-  }
-
 
 service = if (grpc != null || http != null) new {
   metadata {
