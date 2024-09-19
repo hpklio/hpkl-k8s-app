@@ -198,8 +198,15 @@ examples {
                     new {
                       protocol = null
                       hostIP = null
-                      name = "jmx"
+                      name = "rmi"
                       containerPort = 8082
+                      hostPort = null
+                    }
+                    new {
+                      protocol = null
+                      hostIP = null
+                      name = "jmx"
+                      containerPort = 5005
                       hostPort = null
                     }
                     new {
@@ -376,7 +383,12 @@ examples {
         port = 8080
       }
       jmx {
-        port = 8082
+        rmi {
+          port = 8082
+        }
+        agent {
+          port = 5005
+        }
       }
       javaToolOptions {
         "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false"
