@@ -165,9 +165,6 @@ configMixin {
       "-Dcom.sun.management.jmxremote.port=\(model.jmx.port) -Dcom.sun.management.jmxremote.rmi.port=\(model.jmx.port)"
       "-Djava.rmi.server.hostname=127.0.0.1"
       "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005"
-      "-XX:InitialRAMPercentage=70.0"
-      "-XX:MaxRAMPercentage=70.0"
-      "-XX:+CrashOnOutOfMemoryError"
     }.join(" ")  
   }
   management {
