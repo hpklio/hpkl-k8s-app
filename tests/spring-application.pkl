@@ -11,4 +11,13 @@ examples {
       }      
     }
   }
+  ["spring application with jmx"] {
+    new SpringApplication {
+      resourcesRequests {
+        cpu = 722
+        memory = 122.mib
+      }      
+      debug = true
+    }
+  }  
 }
