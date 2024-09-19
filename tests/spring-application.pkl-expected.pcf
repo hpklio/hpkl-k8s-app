@@ -173,7 +173,13 @@ examples {
                       httpHeaders = null
                     }
                   }
-                  env {}
+                  env {
+                    new {
+                      name = "JAVA_TOOL_OPTIONS"
+                      value = "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.port=8082 -Dcom.sun.management.jmxremote.rmi.port=8082 -Djava.rmi.server.hostname=127.0.0.1 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005"
+                      valueFrom = null
+                    }
+                  }
                   ports {
                     new {
                       protocol = null

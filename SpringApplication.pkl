@@ -92,6 +92,10 @@ deployment {
                   value = configPaths.join(",")
                 }
               }
+              new {
+                name = "JAVA_TOOL_OPTIONS"
+                value = module.javaToolOptions.join(" ")
+              }
             }
             ports {
               when (module.http != null) {
@@ -165,7 +169,6 @@ configMixin {
       name = applicationName
     }
   }
-  javaToolOptions = module.javaToolOptions.join(" ")  
   management {
     server {
       port = 8081
