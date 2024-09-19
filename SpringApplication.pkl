@@ -8,13 +8,30 @@ class Controller {
   port: UInt16
 }
 
+class Jmx {
+  rmi: Controller = new { port = 8082 }
+  agent: Controller = new { port = 5005 }
+}
+
+debug: Boolean = false
+
 grpc: Controller? = new { port = 9090 }
 http: Controller? = new { port = 8080 }
+jmx: Jmx? = if (debug) new Jmx {} else null
+
+javaToolOptions : Listing<String> = new {
+      when (module.jmx != null) {
+        "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false"
+        "-Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false"
+        "-Dcom.sun.management.jmxremote.port=\(module.jmx.rmi.port) -Dcom.sun.management.jmxremote.rmi.port=\(module.jmx.rmi.port)"
+        "-Djava.rmi.server.hostname=127.0.0.1"
+        "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:\(module.jmx.agent.port)"
+    }  
+}
 
 local configs = (configMap?.data?.keys?.map((k) -> "\(containerConfigPath)/\(k)"))
 local secrets = (secret?.data?.keys?.map((k) -> "\(containerSecretPath)/\(k)"))
 local configPaths = (configs ?? Set()) + (secrets ?? Set())
-
 
 service = if (grpc != null || http != null) new {
   metadata {
@@ -42,7 +59,7 @@ service = if (grpc != null || http != null) new {
           protocol = "TCP"
           targetPort = "grpc"
         }
-      }
+      }      
     }
     selector {
       ...module.selectorLabels
@@ -83,6 +100,10 @@ deployment {
                   value = configPaths.join(",")
                 }
               }
+              new {
+                name = "JAVA_TOOL_OPTIONS"
+                value = module.javaToolOptions.join(" ")
+              }
             }
             ports {
               when (module.http != null) {
@@ -97,6 +118,16 @@ deployment {
                   containerPort = module.grpc.port
                 }
               }
+              when (module.jmx != null) {
+                new {
+                  name = "rmi"
+                  containerPort = module.jmx.rmi.port
+                }
+                new {
+                  name = "jmx"
+                  containerPort = module.jmx.agent.port
+                }                
+              }              
               new {
                 name = "mgmt"
                 containerPort = 8081
@@ -115,16 +146,16 @@ deployment {
                 path = "/actuator/health"
                 port = "mgmt"
               }
-              initialDelaySeconds = 30
+              initialDelaySeconds = 10
               periodSeconds = 5
               failureThreshold = 3
             }
             readinessProbe {
               httpGet {
-                path = "/actuator/health"
+                path = "/actuator/health/readiness"
                 port = "mgmt"
               }
-              initialDelaySeconds = 30
+              initialDelaySeconds = 10
               periodSeconds = 5
               failureThreshold = 3
             }

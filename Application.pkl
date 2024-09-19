@@ -54,7 +54,7 @@ image: ImageConfig = new {
 }
 
 config: Typed?
-configMixin: Mixin<Dynamic>?
+hidden configMixin: Mixin<Dynamic>?
 
 deployment: Deployment = new {
   metadata {

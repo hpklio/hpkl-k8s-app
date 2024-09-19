@@ -19,10 +19,12 @@ tests {
   "tests/argo.pkl"
   "tests/basic.pkl"
   "tests/nginx.pkl"
+  "tests/spring-application.pkl"
   "spring/tests/kafka.pkl"
   "spring/tests/couchbase.pkl"
   "spring/tests/datasource.pkl"
   "spring/tests/redis.pkl"
   "spring/tests/flyway.pkl"
   "spring/tests/grpc.pkl"
+  "spring/tests/r2dbc.pkl"
 }
