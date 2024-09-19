@@ -15,6 +15,8 @@ local configs = (configMap?.data?.keys?.map((k) -> "\(containerConfigPath)/\(k)"
 local secrets = (secret?.data?.keys?.map((k) -> "\(containerSecretPath)/\(k)"))
 local configPaths = (configs ?? Set()) + (secrets ?? Set())
 
+jmx : Controller? = new { port = 8082 }
+
 
 service = if (grpc != null || http != null) new {
   metadata {
@@ -42,7 +44,7 @@ service = if (grpc != null || http != null) new {
           protocol = "TCP"
           targetPort = "grpc"
         }
-      }
+      }      
     }
     selector {
       ...module.selectorLabels
@@ -97,6 +99,12 @@ deployment {
                   containerPort = module.grpc.port
                 }
               }
+              when (module.jmx != null) {
+                new {
+                  name = "jmx"
+                  containerPort = module.jmx.port
+                }
+              }              
               new {
                 name = "mgmt"
                 containerPort = 8081
@@ -115,16 +123,16 @@ deployment {
                 path = "/actuator/health"
                 port = "mgmt"
               }
-              initialDelaySeconds = 30
+              initialDelaySeconds = 10
               periodSeconds = 5
               failureThreshold = 3
             }
             readinessProbe {
               httpGet {
-                path = "/actuator/health"
+                path = "/actuator/health/readiness"
                 port = "mgmt"
               }
-              initialDelaySeconds = 30
+              initialDelaySeconds = 10
               periodSeconds = 5
               failureThreshold = 3
             }
@@ -149,6 +157,18 @@ configMixin {
     application {
       name = applicationName
     }
+  }
+  when (module.jmx != null) {
+    javaToolOptions = new Listing<String> {
+      "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false"
+      "-Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false"
+      "-Dcom.sun.management.jmxremote.port=\(model.jmx.port) -Dcom.sun.management.jmxremote.rmi.port=\(model.jmx.port)"
+      "-Djava.rmi.server.hostname=127.0.0.1"
+      "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005"
+      "-XX:InitialRAMPercentage=70.0"
+      "-XX:MaxRAMPercentage=70.0"
+      "-XX:+CrashOnOutOfMemoryError"
+    }.join(" ")  
   }
   management {
     server {
