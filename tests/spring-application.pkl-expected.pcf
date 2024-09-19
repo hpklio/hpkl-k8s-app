@@ -176,7 +176,7 @@ examples {
                   env {
                     new {
                       name = "JAVA_TOOL_OPTIONS"
-                      value = "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.port=8082 -Dcom.sun.management.jmxremote.rmi.port=8082 -Djava.rmi.server.hostname=127.0.0.1 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005"
+                      value = ""
                       valueFrom = null
                     }
                   }
@@ -193,20 +193,6 @@ examples {
                       hostIP = null
                       name = "grpc"
                       containerPort = 9090
-                      hostPort = null
-                    }
-                    new {
-                      protocol = null
-                      hostIP = null
-                      name = "rmi"
-                      containerPort = 8082
-                      hostPort = null
-                    }
-                    new {
-                      protocol = null
-                      hostIP = null
-                      name = "jmx"
-                      containerPort = 5005
                       hostPort = null
                     }
                     new {
@@ -382,21 +368,8 @@ examples {
       http {
         port = 8080
       }
-      jmx {
-        rmi {
-          port = 8082
-        }
-        agent {
-          port = 5005
-        }
-      }
-      javaToolOptions {
-        "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false"
-        "-Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false"
-        "-Dcom.sun.management.jmxremote.port=8082 -Dcom.sun.management.jmxremote.rmi.port=8082"
-        "-Djava.rmi.server.hostname=127.0.0.1"
-        "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=0.0.0.0:5005"
-      }
+      jmx = null
+      javaToolOptions {}
     }
   }
 }
