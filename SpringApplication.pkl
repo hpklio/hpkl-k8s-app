@@ -30,7 +30,7 @@ javaToolOptions : Listing<String> = new {
 }
 
 local configs = (configMap?.data?.keys?.map((k) -> "\(containerConfigPath)/\(k)"))
-local secrets = (secret?.data?.keys?.map((k) -> "\(containerSecretPath)/\(k)"))
+local secrets = (secret?.stringData?.keys?.map((k) -> "\(containerSecretPath)/\(k)"))
 local configPaths = (configs ?? Set()) + (secrets ?? Set())
 
 service = if (grpc != null || http != null) new {
