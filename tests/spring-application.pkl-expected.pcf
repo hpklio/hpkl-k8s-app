@@ -774,4 +774,568 @@ examples {
       }
     }
   }
+  ["spring application with secrets"] {
+    new {
+      applicationName = "base-application"
+      resourcesRequests {
+        cpu = 500
+        memory = 128.mib
+      }
+      resourcesLimits {
+        cpu = 500
+        memory = 128.mib
+      }
+      selectorLabels {
+        ["app"] = "base-application"
+        ["app.kubernetes.io/name"] = "base-application"
+      }
+      commonLabels {
+        ["app"] = "base-application"
+        ["app.kubernetes.io/name"] = "base-application"
+      }
+      containerConfigPath = "/app/config"
+      containerSecretPath = "/app/secret"
+      configFileName = "application.yaml"
+      secretFileName = "application.secrets.yaml"
+      image {
+        fullName = "base-application:latest"
+        repository = null
+        name = "base-application"
+        tag = "latest"
+      }
+      config {
+        username = "admin"
+        password = "secret"
+      }
+      deployment {
+        apiVersion = "apps/v1"
+        kind = "Deployment"
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels {
+            ["app"] = "base-application"
+            ["app.kubernetes.io/name"] = "base-application"
+          }
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "base-application"
+          namespace = null
+          clusterName = null
+        }
+        spec {
+          template {
+            metadata {
+              generation = null
+              finalizers = null
+              resourceVersion = null
+              annotations {
+                ["prometheus.io/scrape"] = "true"
+                ["prometheus.io/path"] = "/actuator/prometheus"
+                ["prometheus.io/port"] = "8081"
+              }
+              generateName = null
+              deletionTimestamp = null
+              labels {
+                ["app"] = "base-application"
+                ["app.kubernetes.io/name"] = "base-application"
+              }
+              ownerReferences = null
+              selfLink = null
+              deletionGracePeriodSeconds = null
+              uid = null
+              managedFields = null
+              creationTimestamp = null
+              name = "base-application"
+              namespace = null
+              clusterName = null
+            }
+            spec {
+              dnsPolicy = null
+              nodeName = null
+              terminationGracePeriodSeconds = null
+              dnsConfig = null
+              hostNetwork = null
+              readinessGates = null
+              serviceAccountName = "base-application"
+              imagePullSecrets = null
+              priorityClassName = null
+              hostAliases = null
+              securityContext = null
+              preemptionPolicy = null
+              nodeSelector = null
+              hostname = null
+              runtimeClassName = null
+              tolerations = null
+              automountServiceAccountToken = null
+              schedulingGates = null
+              schedulerName = null
+              activeDeadlineSeconds = null
+              os = null
+              setHostnameAsFQDN = null
+              enableServiceLinks = null
+              overhead = null
+              hostIPC = null
+              topologySpreadConstraints = null
+              volumes {
+                new {
+                  quobyte = null
+                  azureFile = null
+                  flexVolume = null
+                  ephemeral = null
+                  secret = null
+                  projected = null
+                  cephfs = null
+                  scaleIO = null
+                  emptyDir = null
+                  glusterfs = null
+                  gcePersistentDisk = null
+                  photonPersistentDisk = null
+                  azureDisk = null
+                  cinder = null
+                  downwardAPI = null
+                  awsElasticBlockStore = null
+                  flocker = null
+                  iscsi = null
+                  rbd = null
+                  configMap {
+                    defaultMode = null
+                    name = "base-application-config"
+                    optional = null
+                    items {
+                      new {
+                        mode = null
+                        path = "application.yaml"
+                        key = "application.yaml"
+                      }
+                    }
+                  }
+                  storageos = null
+                  csi = null
+                  name = "config"
+                  nfs = null
+                  persistentVolumeClaim = null
+                  gitRepo = null
+                  portworxVolume = null
+                  vsphereVolume = null
+                  fc = null
+                  hostPath = null
+                }
+                new {
+                  quobyte = null
+                  azureFile = null
+                  flexVolume = null
+                  ephemeral = null
+                  secret {
+                    secretName = "base-application-secrets"
+                    defaultMode = null
+                    optional = null
+                    items = null
+                  }
+                  projected = null
+                  cephfs = null
+                  scaleIO = null
+                  emptyDir = null
+                  glusterfs = null
+                  gcePersistentDisk = null
+                  photonPersistentDisk = null
+                  azureDisk = null
+                  cinder = null
+                  downwardAPI = null
+                  awsElasticBlockStore = null
+                  flocker = null
+                  iscsi = null
+                  rbd = null
+                  configMap = null
+                  storageos = null
+                  csi = null
+                  name = "secret"
+                  nfs = null
+                  persistentVolumeClaim = null
+                  gitRepo = null
+                  portworxVolume = null
+                  vsphereVolume = null
+                  fc = null
+                  hostPath = null
+                }
+              }
+              ephemeralContainers = null
+              serviceAccount = null
+              priority = null
+              restartPolicy = null
+              shareProcessNamespace = null
+              hostUsers = null
+              resourceClaims = null
+              subdomain = null
+              containers {
+                new {
+                  volumeDevices = null
+                  image = "base-application:latest"
+                  imagePullPolicy = "IfNotPresent"
+                  livenessProbe {
+                    terminationGracePeriodSeconds = null
+                    failureThreshold = 3
+                    periodSeconds = 5
+                    tcpSocket = null
+                    timeoutSeconds = null
+                    successThreshold = null
+                    initialDelaySeconds = 10
+                    exec = null
+                    grpc = null
+                    httpGet {
+                      path = "/actuator/health"
+                      scheme = null
+                      port = "mgmt"
+                      host = null
+                      httpHeaders = null
+                    }
+                  }
+                  stdin = null
+                  terminationMessagePolicy = "FallbackToLogsOnError"
+                  terminationMessagePath = null
+                  workingDir = null
+                  resources {
+                    claims = null
+                    requests {
+                      ["cpu"] = "500m"
+                      ["memory"] = 128.mib
+                    }
+                    limits {
+                      ["cpu"] = "500m"
+                      ["memory"] = 128.mib
+                    }
+                  }
+                  securityContext = null
+                  startupProbe {
+                    terminationGracePeriodSeconds = null
+                    failureThreshold = 5
+                    periodSeconds = 20
+                    tcpSocket = null
+                    timeoutSeconds = null
+                    successThreshold = null
+                    initialDelaySeconds = null
+                    exec = null
+                    grpc = null
+                    httpGet {
+                      path = "/actuator/health/liveness"
+                      scheme = null
+                      port = "mgmt"
+                      host = null
+                      httpHeaders = null
+                    }
+                  }
+                  env {
+                    new {
+                      name = "SPRING_CONFIG_ADDITIONAL_LOCATION"
+                      value = "/app/config/application.yaml,/app/secret/application.secrets.yaml"
+                      valueFrom = null
+                    }
+                    new {
+                      name = "JAVA_TOOL_OPTIONS"
+                      value = ""
+                      valueFrom = null
+                    }
+                  }
+                  ports {
+                    new {
+                      protocol = null
+                      hostIP = null
+                      name = "http"
+                      containerPort = 8080
+                      hostPort = null
+                    }
+                    new {
+                      protocol = null
+                      hostIP = null
+                      name = "grpc"
+                      containerPort = 9090
+                      hostPort = null
+                    }
+                    new {
+                      protocol = null
+                      hostIP = null
+                      name = "mgmt"
+                      containerPort = 8081
+                      hostPort = null
+                    }
+                  }
+                  restartPolicy = null
+                  command = null
+                  volumeMounts {
+                    new {
+                      mountPath = "/app/config"
+                      mountPropagation = null
+                      name = "config"
+                      readOnly = true
+                      subPath = null
+                      recursiveReadOnly = null
+                      subPathExpr = null
+                    }
+                    new {
+                      mountPath = "/app/secret"
+                      mountPropagation = null
+                      name = "secret"
+                      readOnly = true
+                      subPath = null
+                      recursiveReadOnly = null
+                      subPathExpr = null
+                    }
+                  }
+                  args = null
+                  lifecycle = null
+                  name = "app"
+                  tty = null
+                  readinessProbe {
+                    terminationGracePeriodSeconds = null
+                    failureThreshold = 3
+                    periodSeconds = 5
+                    tcpSocket = null
+                    timeoutSeconds = null
+                    successThreshold = null
+                    initialDelaySeconds = 10
+                    exec = null
+                    grpc = null
+                    httpGet {
+                      path = "/actuator/health/readiness"
+                      scheme = null
+                      port = "mgmt"
+                      host = null
+                      httpHeaders = null
+                    }
+                  }
+                  resizePolicy = null
+                  stdinOnce = null
+                  envFrom = null
+                }
+              }
+              initContainers = null
+              affinity = null
+              hostPID = null
+            }
+          }
+          paused = null
+          replicas = 2
+          revisionHistoryLimit = 2
+          selector {
+            matchExpressions = null
+            matchLabels {
+              ["app"] = "base-application"
+              ["app.kubernetes.io/name"] = "base-application"
+            }
+          }
+          minReadySeconds = 10
+          strategy {
+            type = "RollingUpdate"
+            rollingUpdate {
+              maxSurge = 1
+              maxUnavailable = 0
+            }
+          }
+          progressDeadlineSeconds = null
+        }
+        status = null
+      }
+      ingress = null
+      service {
+        apiVersion = "v1"
+        kind = "Service"
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels {
+            ["app"] = "base-application"
+            ["app.kubernetes.io/name"] = "base-application"
+          }
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "base-application"
+          namespace = null
+          clusterName = null
+        }
+        spec {
+          clusterIPs = null
+          healthCheckNodePort = null
+          ipFamilyPolicy = null
+          externalIPs = null
+          sessionAffinity = null
+          trafficDistribution = null
+          allocateLoadBalancerNodePorts = null
+          ports {
+            new {
+              protocol = "TCP"
+              port = 8080
+              appProtocol = "http"
+              name = "http"
+              nodePort = null
+              targetPort = "http"
+            }
+            new {
+              protocol = "TCP"
+              port = 9090
+              appProtocol = null
+              name = "grpc"
+              nodePort = null
+              targetPort = "grpc"
+            }
+          }
+          type = null
+          loadBalancerClass = null
+          sessionAffinityConfig = null
+          ipFamilies = null
+          loadBalancerIP = null
+          externalName = null
+          loadBalancerSourceRanges = null
+          externalTrafficPolicy = null
+          selector {
+            ["app"] = "base-application"
+            ["app.kubernetes.io/name"] = "base-application"
+          }
+          publishNotReadyAddresses = null
+          internalTrafficPolicy = null
+          clusterIP = "None"
+          topologyKeys = null
+          ipFamily = null
+        }
+        status = null
+      }
+      serviceAccount {
+        apiVersion = "v1"
+        kind = "ServiceAccount"
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels {
+            ["app"] = "base-application"
+            ["app.kubernetes.io/name"] = "base-application"
+          }
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "base-application"
+          namespace = null
+          clusterName = null
+        }
+        automountServiceAccountToken = null
+        imagePullSecrets = null
+        secrets = null
+      }
+      additional {}
+      configMap {
+        apiVersion = "v1"
+        kind = "ConfigMap"
+        immutable = null
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels {
+            ["app"] = "base-application"
+            ["app.kubernetes.io/name"] = "base-application"
+          }
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "base-application-config"
+          namespace = null
+          clusterName = null
+        }
+        data {
+          ["application.yaml"] = """
+            username: admin
+            spring:
+              application:
+                name: base-application
+            management:
+              server:
+                port: 8081
+              metrics:
+                export:
+                  prometheus:
+                    enabled: true
+              endpoint:
+                health:
+                  show-details: ALWAYS
+                metrics:
+                  enabled: true
+                prometheus:
+                  enabled: true
+              endpoints:
+                web:
+                  exposure:
+                    include: '*'
+            """
+        }
+        binaryData = null
+      }
+      secret {
+        apiVersion = "v1"
+        kind = "Secret"
+        immutable = null
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels {
+            ["app"] = "base-application"
+            ["app.kubernetes.io/name"] = "base-application"
+          }
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "base-application-secrets"
+          namespace = null
+          clusterName = null
+        }
+        data = null
+        type = "Opaque"
+        stringData {
+          ["application.secrets.yaml"] = "password: secret"
+        }
+      }
+      debug = false
+      grpc {
+        port = 9090
+      }
+      http {
+        port = 8080
+      }
+      jmx = null
+      javaToolOptions {}
+    }
+  }
 }

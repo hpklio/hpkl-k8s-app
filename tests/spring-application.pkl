@@ -1,6 +1,13 @@
 amends "pkl:test"
 
 import "../SpringApplication.pkl"
+import "../renderer.pkl"
+
+local class ExampleConfig {
+  username: String
+  @renderer.SecretField
+  password: String
+}
 
 examples {
   ["spring application"] {
@@ -19,5 +26,13 @@ examples {
       }      
       debug = true
     }
-  }  
+  }
+  ["spring application with secrets"] {
+    new SpringApplication {
+      config = new ExampleConfig {
+        username = "admin"
+        password = "secret"
+      }
+    }
+  }
 }
