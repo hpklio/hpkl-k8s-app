@@ -1,6 +1,6 @@
 import "../renderer.pkl"
 
-class Config {
+open class Config {
     bootstrapServers: Listing<String>?
     clientId: String?
     groupId: String
@@ -23,7 +23,7 @@ class Config {
 typealias IsolationLevel = "READ_COMMITTED" | "READ_UNCOMMITTED"
 typealias AutoOffsetReset = "earliest" | "latest"
 
-class ConsumerConfig {
+open class ConsumerConfig {
     ssl: SslConfig?
     security: SecurityConfig?
 
@@ -42,7 +42,7 @@ class ConsumerConfig {
     properties: Mapping<String, String>?
 }
 
-class ProducerConfig {
+open class ProducerConfig {
     ssl: SslConfig?
     security: SecurityConfig?
     acks: String?
@@ -58,7 +58,7 @@ class ProducerConfig {
     properties: Mapping<String, String>?
 }
 
-class AdminConfig {
+open class AdminConfig {
     ssl: SslConfig?
     security: SecurityConfig?
     clientId: String?
@@ -69,7 +69,7 @@ class AdminConfig {
     properties: Mapping<String, String>?
 }
 
-class StreamsConfig {
+open class StreamsConfig {
     ssl: SslConfig?
     security: SecurityConfig?
     applicationId: String?
@@ -85,7 +85,7 @@ class StreamsConfig {
 typealias AckMode = "RECORD"|"BATCH"|"TIME"|"COUNT"|"COUNT_TIME"|"MANUAL"|"MANUAL_IMMEDIATE"
 typealias ListenerType = "SINGLE"|"BATCH"
 
-class ListenerConfig {
+open class ListenerConfig {
     type: ListenerType?
     ackMode: AckMode?
     asyncAcks: Boolean?
@@ -108,11 +108,11 @@ class ListenerConfig {
 }
 
 
-class SecurityConfig {
+open class SecurityConfig {
     protocol: String?
 }
 
-class SslConfig {
+open class SslConfig {
     bundle: String?
 
     @renderer.SecretField
@@ -136,23 +136,23 @@ class SslConfig {
     protocol: String
 }
 
-class JaasConfig {
+open class JaasConfig {
     enabled: Boolean?
     loginModule: String?
     options: Mapping<String, String>?
 }
 
-class TemplateConfig {
+open class TemplateConfig {
     defaultTopic: String?
     transactionIdPrefix: String?
     observationEnabled: Boolean?
 }
 
-class RetryConfig {
+open class RetryConfig {
     topic: RetryTopicConfig
 }
 
-class RetryTopicConfig {
+open class RetryTopicConfig {
     enabled: Boolean?
     attempts: UInt16?
     delay: Duration?

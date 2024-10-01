@@ -1,6 +1,6 @@
 import "../renderer.pkl"
 
-class Config {
+open class Config {
     enabled: Boolean?
     failOnMissingLocations: Boolean?
     locations: Listing<String>?

@@ -1,6 +1,6 @@
 import "../renderer.pkl"
 
-class Config {
+open class Config {
   name: String?
   generateUniqueName: Boolean = false
   url: String?
@@ -12,7 +12,7 @@ class Config {
   uniqueName: String?
 }
 
-class Pool {
+open class Pool {
   @renderer.NamedField{name = "min-idle"}
   minIdle: Int = 0
   @renderer.NamedField{name = "max-idle-time"}
