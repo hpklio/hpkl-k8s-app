@@ -19,6 +19,7 @@ tests {
   "tests/argo.pkl"
   "tests/basic.pkl"
   "tests/nginx.pkl"
+  "tests/renderer.pkl"
   "tests/spring-application.pkl"
   "spring/tests/kafka.pkl"
   "spring/tests/couchbase.pkl"

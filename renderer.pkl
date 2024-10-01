@@ -19,9 +19,14 @@ class SecretRenderer {
   function namedField(p: reflect.Property, name: String): String =
     p.annotations.findOrNull((a) -> a.getClass() == NamedField)?.getProperty("name") ?? name
 
+  function collectProperties(clazz: reflect.Class): Map<String, reflect.Property> =
+    if (clazz.superclass != null)
+      collectProperties(clazz.superclass) + clazz.properties
+    else clazz.properties
+
   function render(value: Typed, secrets: Boolean): Dynamic  =
     let (clazz = reflect.Class(value.getClass()))
-        clazz.properties
+        collectProperties(clazz)
           .map((n, p) ->
               Pair(n, new ClassElement{
                   name = n

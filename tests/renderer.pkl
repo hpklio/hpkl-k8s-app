@@ -1,0 +1,55 @@
+amends "pkl:test"
+
+import "../renderer.pkl"
+
+local open class TestConfig {
+    name: String?
+    id: UInt
+    @renderer.SecretField
+    secret: String?
+}
+
+local class TestConfigExtended extends TestConfig  {
+    @renderer.NamedField{name = "another"}
+    anotherField: String?
+
+    @renderer.SecretField
+    anotherSecret: String?    
+}
+
+local rend = new renderer.SecretRenderer{}
+
+examples {
+  ["Rendering is working withot secret"] {
+    rend.render(new TestConfig{
+        name = "Test"
+        id = 12121
+        secret = "TestSecret"
+    }, false)
+  }
+  ["Rendering is working only secret"] {
+    rend.render(new TestConfig{
+        name = "Test"
+        id = 12121
+        secret = "TestSecret"
+    }, true)
+  } 
+  ["Rendering is working for inheritance"] {
+    rend.render(new TestConfigExtended{
+        name = "Test"
+        id = 12121
+        secret = "TestSecret"
+        anotherField = "AnotherField"
+        anotherSecret = "1212121"
+    }, false)
+  }
+  ["Rendering is working for inheritance only for secrets"] {
+    rend.render(new TestConfigExtended{
+        name = "Test"
+        id = 12121
+        secret = "TestSecret"
+        anotherField = "AnotherField"
+        anotherSecret = "1212121"
+    }, true)
+  }       
+}
