@@ -1,0 +1,34 @@
+examples {
+  ["Rendering is working withot secret"] {
+    new {
+      name = "Test"
+      id = 12121
+      secret = null
+    }
+  }
+  ["Rendering is working only secret"] {
+    new {
+      name = null
+      id = null
+      secret = "TestSecret"
+    }
+  }
+  ["Rendering is working for inheritance"] {
+    new {
+      name = "Test"
+      id = 12121
+      secret = null
+      another = "AnotherField"
+      anotherSecret = null
+    }
+  }
+  ["Rendering is working for inheritance only for secrets"] {
+    new {
+      name = null
+      id = null
+      secret = "TestSecret"
+      another = null
+      anotherSecret = "1212121"
+    }
+  }
+}
