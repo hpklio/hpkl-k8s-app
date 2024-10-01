@@ -2,7 +2,7 @@ import "../renderer.pkl"
 
 typealias ClientType =  "LETTUCE"|"JEDIS"
 
-class Config {
+open class Config {
     url: String?
     host: String?
     username: String?
@@ -29,27 +29,27 @@ class Config {
     lettuce: LettuceConfig?
 }
 
-class ClusterConfig {
+open class ClusterConfig {
     nodes: Listing<String>?
     maxRedirects: UInt16?
 }
 
-class SslConfig {
+open class SslConfig {
     enabled: Boolean?
     bundle: String?
 }
 
-class JedisConfig {
+open class JedisConfig {
     pool: PoolConfig?
 }
 
-class LettuceConfig {
+open class LettuceConfig {
     shutdownTimeout: Duration?
     pool: PoolConfig?
     cluster: ClusterConfig?
 }
 
-class PoolConfig {
+open class PoolConfig {
     enabled: Boolean?
     maxIdle: UInt32?
     minIdle: UInt32?

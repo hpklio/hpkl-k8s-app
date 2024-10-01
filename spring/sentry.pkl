@@ -1,4 +1,4 @@
-class SentryConfig {
+open class SentryConfig {
   dsn: String
   dsnHash: String?
   environment: String

@@ -1,6 +1,6 @@
 import "../renderer.pkl"
 
-class Hikari {
+open class Hikari {
     @renderer.NamedField{ name="connection-test-query" }
     connectionTestQuery: String?
 
@@ -19,7 +19,7 @@ class Hikari {
 
 typealias InitializationMode = "never"|"always"
 
-class Config {
+open class Config {
     @renderer.NamedField{ name="driver-class-name" }
     driverClassName: String?
 
