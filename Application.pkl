@@ -46,7 +46,7 @@ secretFileName = "application.secrets.\(configRenderer?.extension)"
 hidden configRenderer =  new YamlRenderer{
   converters {
     [Duration] = (d: Duration) -> d.isoString
-    [DataSize] = (d: DataSize) -> "\(d.value)\(d.unit)"    
+    [DataSize] = (d: DataSize) -> "\(d.value)\(d.unit.toUpperCase())"
   }
 }
 
