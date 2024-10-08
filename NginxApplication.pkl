@@ -4,6 +4,8 @@ extends "Application.pkl"
 
 import "@k8s/K8sObject.pkl"
 
+import "common/Affinities.pkl"
+
 applicationName = "nginx-application"
 
 healthcheckPath = "/healthcheck.txt"
@@ -94,6 +96,7 @@ deployment {
         }
       }
       spec {
+        affinity = module.affinity.config
         containers {
           [0] {
             name = "nginx"
@@ -222,5 +225,11 @@ ingress {
         }
       }
     }
+  }
+}
+
+affinity = new Affinities {
+  podAntiAffinityConfig {
+    selectorLabels = module.selectorLabels
   }
 }

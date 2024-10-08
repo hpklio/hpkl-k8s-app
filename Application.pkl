@@ -12,6 +12,8 @@ import "@k8s/api/networking/v1/Ingress.pkl"
 
 import "renderer.pkl"
 
+import "common/Affinities.pkl"
+
 applicationName: K8sResource.Rfc1123Label = "app"
 
 class K8SResource {
@@ -22,12 +24,12 @@ class K8SResource {
 resourcesRequests: K8SResource = new {}
 resourcesLimits: K8SResource? = resourcesRequests
 
-selectorLabels {
+selectorLabels: Mapping<String, String> = new {
   ["app"] = applicationName
   ["app.kubernetes.io/name"] = applicationName
 }
 
-commonLabels {
+commonLabels: Mapping<String, String> = new {
   ...selectorLabels
 }
 
@@ -78,6 +80,7 @@ deployment: Deployment = new {
         }
       }
       spec {
+        affinity = module.affinity.config
         when (module.serviceAccount != null) {
           serviceAccountName = module.serviceAccount.metadata.name
         }
@@ -151,6 +154,12 @@ ingress: Ingress?
 service: Service?
 serviceAccount: ServiceAccount?
 additional: Mapping<String, K8sResource>
+
+affinity = new Affinities {
+  podAntiAffinityConfig {
+    selectorLabels = module.selectorLabels
+  }
+}
 
 local secretRenderer = new renderer.SecretRenderer{}
 
