@@ -3,9 +3,27 @@ amends "pkl:test"
 import "../NginxApplication.pkl"
 
 examples {
-  ["application"] {
+  ["nginx application"] {
     new NginxApplication {
         ingressHost = "nginx.example.com"
+    }
+  }
+  ["nginx podAntiAffinityPresetSoft"] {
+    new NginxApplication {
+      affinity {
+        podAntiAffinityConfig {
+          preset = "Soft"
+        }
+      }
+    }
+  }
+  ["nginx podAntiAffinityPresetHard"] {
+    new NginxApplication {
+      affinity {
+        podAntiAffinityConfig {
+          preset = "Hard"
+        }
+      }
     }
   }
 }

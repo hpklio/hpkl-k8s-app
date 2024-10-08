@@ -1521,7 +1521,7 @@ examples {
       javaToolOptions {}
     }
   }
-  ["podAntiAffinityPresetSoft"] {
+  ["spring podAntiAffinityPresetSoft"] {
     new {
       applicationName = "base-application"
       resourcesRequests {
@@ -1956,7 +1956,7 @@ examples {
       javaToolOptions {}
     }
   }
-  ["podAntiAffinityPresetHard"] {
+  ["spring podAntiAffinityPresetHard"] {
     new {
       applicationName = "base-application"
       resourcesRequests {
