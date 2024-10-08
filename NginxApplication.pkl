@@ -96,7 +96,7 @@ deployment {
         }
       }
       spec {
-        affinity = module.affinity.output.value
+        affinity = module.affinity.config
         containers {
           [0] {
             name = "nginx"

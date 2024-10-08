@@ -80,7 +80,7 @@ deployment: Deployment = new {
         }
       }
       spec {
-        affinity = module.affinity.output.value
+        affinity = module.affinity.config
         when (module.serviceAccount != null) {
           serviceAccountName = module.serviceAccount.metadata.name
         }

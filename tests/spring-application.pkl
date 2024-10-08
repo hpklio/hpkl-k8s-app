@@ -39,7 +39,7 @@ examples {
     new SpringApplication {
       affinity {
         podAntiAffinityConfig {
-          preset = "soft"
+          preset = "Soft"
         }
       }
     }
@@ -48,7 +48,7 @@ examples {
     new SpringApplication {
       affinity {
         podAntiAffinityConfig {
-          preset = "hard"
+          preset = "Hard"
         }
       }
     }

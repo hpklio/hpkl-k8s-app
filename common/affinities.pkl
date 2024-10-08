@@ -3,7 +3,7 @@ open module hpkl.common.k8s.affinities
 import "@k8s/api/core/v1/PodSpec.pkl"
 
 class PodAntiAffinityConfig {
-  preset: "soft"| "hard" = "soft"
+  preset: "Soft"| "Hard" = "Soft"
   topologyKey: String = "kubernetes.io/hostname"
   selectorLabels: Mapping<String, String>
 }
@@ -12,7 +12,7 @@ podAntiAffinityConfig: PodAntiAffinityConfig = new {}
 
 config: PodSpec.Affinity = new {
   podAntiAffinity = new {
-    when (podAntiAffinityConfig.preset == "soft") {
+    when (podAntiAffinityConfig.preset == "Soft") {
       preferredDuringSchedulingIgnoredDuringExecution {
         new {
           weight = 1
@@ -25,7 +25,7 @@ config: PodSpec.Affinity = new {
         }
       }
     }
-    when (podAntiAffinityConfig.preset == "hard") {
+    when (podAntiAffinityConfig.preset == "Hard") {
         requiredDuringSchedulingIgnoredDuringExecution {
             new {
                 labelSelector {
@@ -36,9 +36,4 @@ config: PodSpec.Affinity = new {
         }
     }
   }
-}
-
-output {
-  renderer = new YamlRenderer {}
-  value = config
 }

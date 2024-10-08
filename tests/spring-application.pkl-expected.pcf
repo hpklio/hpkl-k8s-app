@@ -387,7 +387,7 @@ examples {
       additional {}
       affinity {
         podAntiAffinityConfig {
-          preset = "soft"
+          preset = "Soft"
           topologyKey = "kubernetes.io/hostname"
           selectorLabels {
             ["app"] = "base-application"
@@ -836,7 +836,7 @@ examples {
       additional {}
       affinity {
         podAntiAffinityConfig {
-          preset = "soft"
+          preset = "Soft"
           topologyKey = "kubernetes.io/hostname"
           selectorLabels {
             ["app"] = "base-application"
@@ -1392,7 +1392,7 @@ examples {
       additional {}
       affinity {
         podAntiAffinityConfig {
-          preset = "soft"
+          preset = "Soft"
           topologyKey = "kubernetes.io/hostname"
           selectorLabels {
             ["app"] = "base-application"
@@ -1909,7 +1909,7 @@ examples {
       additional {}
       affinity {
         podAntiAffinityConfig {
-          preset = "soft"
+          preset = "Soft"
           topologyKey = "kubernetes.io/hostname"
           selectorLabels {
             ["app"] = "base-application"
@@ -2341,7 +2341,7 @@ examples {
       additional {}
       affinity {
         podAntiAffinityConfig {
-          preset = "hard"
+          preset = "Hard"
           topologyKey = "kubernetes.io/hostname"
           selectorLabels {
             ["app"] = "base-application"

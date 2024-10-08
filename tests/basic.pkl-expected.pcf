@@ -202,7 +202,7 @@ examples {
       additional {}
       affinity {
         podAntiAffinityConfig {
-          preset = "soft"
+          preset = "Soft"
           topologyKey = "kubernetes.io/hostname"
           selectorLabels {
             ["app"] = "example-app"
@@ -437,7 +437,7 @@ examples {
       additional {}
       affinity {
         podAntiAffinityConfig {
-          preset = "soft"
+          preset = "Soft"
           topologyKey = "kubernetes.io/hostname"
           selectorLabels {
             ["app"] = "app"

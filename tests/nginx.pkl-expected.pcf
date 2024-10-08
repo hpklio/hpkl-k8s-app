@@ -475,7 +475,7 @@ examples {
       additional {}
       affinity {
         podAntiAffinityConfig {
-          preset = "soft"
+          preset = "Soft"
           topologyKey = "kubernetes.io/hostname"
           selectorLabels {
             ["app"] = "nginx-application"
