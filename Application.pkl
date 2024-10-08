@@ -12,7 +12,7 @@ import "@k8s/api/networking/v1/Ingress.pkl"
 
 import "renderer.pkl"
 
-import "common/affinities.pkl"
+import "common/Affinities.pkl"
 
 applicationName: K8sResource.Rfc1123Label = "app"
 
@@ -155,7 +155,7 @@ service: Service?
 serviceAccount: ServiceAccount?
 additional: Mapping<String, K8sResource>
 
-affinity = new affinities {
+affinity = new Affinities {
   podAntiAffinityConfig {
     selectorLabels = module.selectorLabels
   }

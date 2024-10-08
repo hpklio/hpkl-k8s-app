@@ -1,4 +1,4 @@
-open module hpkl.common.k8s.affinities
+open module hpkl.common.k8s.Affinities
 
 import "@k8s/api/core/v1/PodSpec.pkl"
 

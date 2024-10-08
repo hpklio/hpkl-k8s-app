@@ -4,7 +4,7 @@ extends "Application.pkl"
 
 import "@k8s/K8sObject.pkl"
 
-import "common/affinities.pkl"
+import "common/Affinities.pkl"
 
 applicationName = "nginx-application"
 
@@ -228,7 +228,7 @@ ingress {
   }
 }
 
-affinity = new affinities {
+affinity = new Affinities {
   podAntiAffinityConfig {
     selectorLabels = module.selectorLabels
   }
