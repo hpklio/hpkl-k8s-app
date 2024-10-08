@@ -35,4 +35,22 @@ examples {
       }
     }
   }
+  ["podAntiAffinityPresetSoft"] {
+    new SpringApplication {
+      affinity {
+        podAntiAffinityConfig {
+          preset = "soft"
+        }
+      }
+    }
+  }
+  ["podAntiAffinityPresetHard"] {
+    new SpringApplication {
+      affinity {
+        podAntiAffinityConfig {
+          preset = "hard"
+        }
+      }
+    }
+  }
 }

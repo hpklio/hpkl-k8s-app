@@ -151,7 +151,32 @@ examples {
                 }
               }
               initContainers = null
-              affinity = null
+              affinity {
+                nodeAffinity = null
+                podAffinity = null
+                podAntiAffinity {
+                  requiredDuringSchedulingIgnoredDuringExecution = null
+                  preferredDuringSchedulingIgnoredDuringExecution {
+                    new {
+                      podAffinityTerm {
+                        labelSelector {
+                          matchExpressions = null
+                          matchLabels {
+                            ["app"] = "example-app"
+                            ["app.kubernetes.io/name"] = "example-app"
+                          }
+                        }
+                        namespaceSelector = null
+                        topologyKey = "kubernetes.io/hostname"
+                        matchLabelKeys = null
+                        mismatchLabelKeys = null
+                        namespaces = null
+                      }
+                      weight = 1
+                    }
+                  }
+                }
+              }
               hostPID = null
             }
           }
@@ -175,6 +200,42 @@ examples {
       service = null
       serviceAccount = null
       additional {}
+      affinity {
+        podAntiAffinityConfig {
+          preset = "soft"
+          topologyKey = "kubernetes.io/hostname"
+          selectorLabels {
+            ["app"] = "example-app"
+            ["app.kubernetes.io/name"] = "example-app"
+          }
+        }
+        config {
+          nodeAffinity = null
+          podAffinity = null
+          podAntiAffinity {
+            requiredDuringSchedulingIgnoredDuringExecution = null
+            preferredDuringSchedulingIgnoredDuringExecution {
+              new {
+                podAffinityTerm {
+                  labelSelector {
+                    matchExpressions = null
+                    matchLabels {
+                      ["app"] = "example-app"
+                      ["app.kubernetes.io/name"] = "example-app"
+                    }
+                  }
+                  namespaceSelector = null
+                  topologyKey = "kubernetes.io/hostname"
+                  matchLabelKeys = null
+                  mismatchLabelKeys = null
+                  namespaces = null
+                }
+                weight = 1
+              }
+            }
+          }
+        }
+      }
       configMap = null
       secret = null
     }
@@ -325,7 +386,32 @@ examples {
                 }
               }
               initContainers = null
-              affinity = null
+              affinity {
+                nodeAffinity = null
+                podAffinity = null
+                podAntiAffinity {
+                  requiredDuringSchedulingIgnoredDuringExecution = null
+                  preferredDuringSchedulingIgnoredDuringExecution {
+                    new {
+                      podAffinityTerm {
+                        labelSelector {
+                          matchExpressions = null
+                          matchLabels {
+                            ["app"] = "app"
+                            ["app.kubernetes.io/name"] = "app"
+                          }
+                        }
+                        namespaceSelector = null
+                        topologyKey = "kubernetes.io/hostname"
+                        matchLabelKeys = null
+                        mismatchLabelKeys = null
+                        namespaces = null
+                      }
+                      weight = 1
+                    }
+                  }
+                }
+              }
               hostPID = null
             }
           }
@@ -349,6 +435,42 @@ examples {
       service = null
       serviceAccount = null
       additional {}
+      affinity {
+        podAntiAffinityConfig {
+          preset = "soft"
+          topologyKey = "kubernetes.io/hostname"
+          selectorLabels {
+            ["app"] = "app"
+            ["app.kubernetes.io/name"] = "app"
+          }
+        }
+        config {
+          nodeAffinity = null
+          podAffinity = null
+          podAntiAffinity {
+            requiredDuringSchedulingIgnoredDuringExecution = null
+            preferredDuringSchedulingIgnoredDuringExecution {
+              new {
+                podAffinityTerm {
+                  labelSelector {
+                    matchExpressions = null
+                    matchLabels {
+                      ["app"] = "app"
+                      ["app.kubernetes.io/name"] = "app"
+                    }
+                  }
+                  namespaceSelector = null
+                  topologyKey = "kubernetes.io/hostname"
+                  matchLabelKeys = null
+                  mismatchLabelKeys = null
+                  namespaces = null
+                }
+                weight = 1
+              }
+            }
+          }
+        }
+      }
       configMap = null
       secret = null
     }
