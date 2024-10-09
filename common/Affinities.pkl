@@ -3,7 +3,7 @@ open module hpkl.common.k8s.Affinities
 import "@k8s/api/core/v1/PodSpec.pkl"
 
 class PodAntiAffinityConfig {
-  preset: "Soft"| "Hard" = "Soft"
+  preset: "Soft"| "Hard" | "" = ""
   topologyKey: String = "kubernetes.io/hostname"
   selectorLabels: Mapping<String, String>
 }
@@ -11,12 +11,24 @@ class PodAntiAffinityConfig {
 podAntiAffinityConfig: PodAntiAffinityConfig = new {}
 
 config: PodSpec.Affinity = new {
-  podAntiAffinity = new {
-    when (podAntiAffinityConfig.preset == "Soft") {
-      preferredDuringSchedulingIgnoredDuringExecution {
-        new {
-          weight = 1
-          podAffinityTerm {
+  when (podAntiAffinityConfig.preset != "") {
+    podAntiAffinity = new {
+      when (podAntiAffinityConfig.preset == "Soft") {
+        preferredDuringSchedulingIgnoredDuringExecution {
+          new {
+            weight = 1
+            podAffinityTerm {
+              labelSelector {
+                matchLabels = podAntiAffinityConfig.selectorLabels
+              }
+              topologyKey = podAntiAffinityConfig.topologyKey
+            }
+          }
+        }
+      }
+      when (podAntiAffinityConfig.preset == "Hard") {
+        requiredDuringSchedulingIgnoredDuringExecution {
+          new {
             labelSelector {
               matchLabels = podAntiAffinityConfig.selectorLabels
             }
@@ -24,16 +36,6 @@ config: PodSpec.Affinity = new {
           }
         }
       }
-    }
-    when (podAntiAffinityConfig.preset == "Hard") {
-        requiredDuringSchedulingIgnoredDuringExecution {
-            new {
-                labelSelector {
-                    matchLabels = podAntiAffinityConfig.selectorLabels
-                }
-                topologyKey = podAntiAffinityConfig.topologyKey
-            }
-        }
     }
   }
 }

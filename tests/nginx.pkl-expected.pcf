@@ -310,28 +310,7 @@ examples {
               affinity {
                 nodeAffinity = null
                 podAffinity = null
-                podAntiAffinity {
-                  requiredDuringSchedulingIgnoredDuringExecution = null
-                  preferredDuringSchedulingIgnoredDuringExecution {
-                    new {
-                      podAffinityTerm {
-                        labelSelector {
-                          matchExpressions = null
-                          matchLabels {
-                            ["app"] = "nginx-application"
-                            ["app.kubernetes.io/name"] = "nginx-application"
-                          }
-                        }
-                        namespaceSelector = null
-                        topologyKey = "kubernetes.io/hostname"
-                        matchLabelKeys = null
-                        mismatchLabelKeys = null
-                        namespaces = null
-                      }
-                      weight = 1
-                    }
-                  }
-                }
+                podAntiAffinity = null
               }
               hostPID = null
             }
@@ -475,7 +454,7 @@ examples {
       additional {}
       affinity {
         podAntiAffinityConfig {
-          preset = "Soft"
+          preset = ""
           topologyKey = "kubernetes.io/hostname"
           selectorLabels {
             ["app"] = "nginx-application"
@@ -485,28 +464,7 @@ examples {
         config {
           nodeAffinity = null
           podAffinity = null
-          podAntiAffinity {
-            requiredDuringSchedulingIgnoredDuringExecution = null
-            preferredDuringSchedulingIgnoredDuringExecution {
-              new {
-                podAffinityTerm {
-                  labelSelector {
-                    matchExpressions = null
-                    matchLabels {
-                      ["app"] = "nginx-application"
-                      ["app.kubernetes.io/name"] = "nginx-application"
-                    }
-                  }
-                  namespaceSelector = null
-                  topologyKey = "kubernetes.io/hostname"
-                  matchLabelKeys = null
-                  mismatchLabelKeys = null
-                  namespaces = null
-                }
-                weight = 1
-              }
-            }
-          }
+          podAntiAffinity = null
         }
       }
       configMap = null
