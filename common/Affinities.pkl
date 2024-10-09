@@ -14,13 +14,13 @@ config: PodSpec.Affinity = new {
   when (podAntiAffinityConfig.preset != "") {
     podAntiAffinity = new {
       when (podAntiAffinityConfig.preset == "Soft") {
-      preferredDuringSchedulingIgnoredDuringExecution {
-        new {
-          weight = 1
-          podAffinityTerm {
-            labelSelector {
-              matchLabels = podAntiAffinityConfig.selectorLabels
-            }
+        preferredDuringSchedulingIgnoredDuringExecution {
+          new {
+            weight = 1
+            podAffinityTerm {
+              labelSelector {
+                matchLabels = podAntiAffinityConfig.selectorLabels
+              }
               topologyKey = podAntiAffinityConfig.topologyKey
             }
           }
