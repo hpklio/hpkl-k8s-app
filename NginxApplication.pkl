@@ -197,7 +197,7 @@ deployment {
   }
 }
 
-ingress {
+ingress = if (module.ingressHost != null) new {
   metadata {
     name = module.applicationName
   }
@@ -226,7 +226,7 @@ ingress {
       }
     }
   }
-}
+} else null
 
 affinity = new Affinities {
   podAntiAffinityConfig {
