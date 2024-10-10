@@ -848,57 +848,7 @@ examples {
         }
         status = null
       }
-      ingress {
-        apiVersion = "networking.k8s.io/v1"
-        kind = "Ingress"
-        metadata {
-          generation = null
-          finalizers = null
-          resourceVersion = null
-          annotations = null
-          generateName = null
-          deletionTimestamp = null
-          labels = null
-          ownerReferences = null
-          selfLink = null
-          deletionGracePeriodSeconds = null
-          uid = null
-          managedFields = null
-          creationTimestamp = null
-          name = "nginx-application"
-          namespace = null
-          clusterName = null
-        }
-        spec {
-          defaultBackend = null
-          ingressClassName = "nginx"
-          rules {
-            new {
-              host = null
-              http {
-                paths {
-                  new {
-                    path = "/"
-                    backend {
-                      resource = null
-                      service {
-                        port {
-                          number = 8080
-                          name = null
-                        }
-                        name = "nginx-application"
-                      }
-                    }
-                    pathType = "Prefix"
-                  }
-                }
-              }
-            }
-          }
-          tls = null
-        }
-        status = null
-      }
+      ingress = null
       service {
         apiVersion = "v1"
         kind = "Service"
@@ -1377,57 +1327,7 @@ examples {
         }
         status = null
       }
-      ingress {
-        apiVersion = "networking.k8s.io/v1"
-        kind = "Ingress"
-        metadata {
-          generation = null
-          finalizers = null
-          resourceVersion = null
-          annotations = null
-          generateName = null
-          deletionTimestamp = null
-          labels = null
-          ownerReferences = null
-          selfLink = null
-          deletionGracePeriodSeconds = null
-          uid = null
-          managedFields = null
-          creationTimestamp = null
-          name = "nginx-application"
-          namespace = null
-          clusterName = null
-        }
-        spec {
-          defaultBackend = null
-          ingressClassName = "nginx"
-          rules {
-            new {
-              host = null
-              http {
-                paths {
-                  new {
-                    path = "/"
-                    backend {
-                      resource = null
-                      service {
-                        port {
-                          number = 8080
-                          name = null
-                        }
-                        name = "nginx-application"
-                      }
-                    }
-                    pathType = "Prefix"
-                  }
-                }
-              }
-            }
-          }
-          tls = null
-        }
-        status = null
-      }
+      ingress = null
       service {
         apiVersion = "v1"
         kind = "Service"
