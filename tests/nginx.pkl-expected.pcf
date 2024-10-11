@@ -75,7 +75,7 @@ examples {
               uid = null
               managedFields = null
               creationTimestamp = null
-              name = "nginx-application"
+              name = null
               namespace = null
               clusterName = null
             }
@@ -565,7 +565,7 @@ examples {
               uid = null
               managedFields = null
               creationTimestamp = null
-              name = "nginx-application"
+              name = null
               namespace = null
               clusterName = null
             }
@@ -1047,7 +1047,7 @@ examples {
               uid = null
               managedFields = null
               creationTimestamp = null
-              name = "nginx-application"
+              name = null
               namespace = null
               clusterName = null
             }

@@ -76,7 +76,7 @@ examples {
               uid = null
               managedFields = null
               creationTimestamp = null
-              name = "base-application"
+              name = null
               namespace = null
               clusterName = null
             }
@@ -469,7 +469,7 @@ examples {
               uid = null
               managedFields = null
               creationTimestamp = null
-              name = "base-application"
+              name = null
               namespace = null
               clusterName = null
             }
@@ -892,7 +892,7 @@ examples {
               uid = null
               managedFields = null
               creationTimestamp = null
-              name = "base-application"
+              name = null
               namespace = null
               clusterName = null
             }
@@ -1472,7 +1472,7 @@ examples {
               uid = null
               managedFields = null
               creationTimestamp = null
-              name = "base-application"
+              name = null
               namespace = null
               clusterName = null
             }
@@ -1907,7 +1907,7 @@ examples {
               uid = null
               managedFields = null
               creationTimestamp = null
-              name = "base-application"
+              name = null
               namespace = null
               clusterName = null
             }
