@@ -11,7 +11,6 @@ examples {
         memory = 128.mib
       }
       selectorLabels {
-        ["app"] = "nginx-application"
         ["app.kubernetes.io/name"] = "nginx-application"
       }
       commonLabels {
@@ -321,7 +320,6 @@ examples {
           selector {
             matchExpressions = null
             matchLabels {
-              ["app"] = "nginx-application"
               ["app.kubernetes.io/name"] = "nginx-application"
             }
           }
@@ -439,7 +437,6 @@ examples {
           loadBalancerSourceRanges = null
           externalTrafficPolicy = null
           selector {
-            ["app"] = "nginx-application"
             ["app.kubernetes.io/name"] = "nginx-application"
           }
           publishNotReadyAddresses = null
@@ -457,7 +454,6 @@ examples {
           preset = ""
           topologyKey = "kubernetes.io/hostname"
           selectorLabels {
-            ["app"] = "nginx-application"
             ["app.kubernetes.io/name"] = "nginx-application"
           }
         }
@@ -501,7 +497,6 @@ examples {
         memory = 128.mib
       }
       selectorLabels {
-        ["app"] = "nginx-application"
         ["app.kubernetes.io/name"] = "nginx-application"
       }
       commonLabels {
@@ -808,7 +803,6 @@ examples {
                         labelSelector {
                           matchExpressions = null
                           matchLabels {
-                            ["app"] = "nginx-application"
                             ["app.kubernetes.io/name"] = "nginx-application"
                           }
                         }
@@ -832,7 +826,6 @@ examples {
           selector {
             matchExpressions = null
             matchLabels {
-              ["app"] = "nginx-application"
               ["app.kubernetes.io/name"] = "nginx-application"
             }
           }
@@ -900,7 +893,6 @@ examples {
           loadBalancerSourceRanges = null
           externalTrafficPolicy = null
           selector {
-            ["app"] = "nginx-application"
             ["app.kubernetes.io/name"] = "nginx-application"
           }
           publishNotReadyAddresses = null
@@ -918,7 +910,6 @@ examples {
           preset = "Soft"
           topologyKey = "kubernetes.io/hostname"
           selectorLabels {
-            ["app"] = "nginx-application"
             ["app.kubernetes.io/name"] = "nginx-application"
           }
         }
@@ -933,7 +924,6 @@ examples {
                   labelSelector {
                     matchExpressions = null
                     matchLabels {
-                      ["app"] = "nginx-application"
                       ["app.kubernetes.io/name"] = "nginx-application"
                     }
                   }
@@ -983,7 +973,6 @@ examples {
         memory = 128.mib
       }
       selectorLabels {
-        ["app"] = "nginx-application"
         ["app.kubernetes.io/name"] = "nginx-application"
       }
       commonLabels {
@@ -1288,7 +1277,6 @@ examples {
                       labelSelector {
                         matchExpressions = null
                         matchLabels {
-                          ["app"] = "nginx-application"
                           ["app.kubernetes.io/name"] = "nginx-application"
                         }
                       }
@@ -1311,7 +1299,6 @@ examples {
           selector {
             matchExpressions = null
             matchLabels {
-              ["app"] = "nginx-application"
               ["app.kubernetes.io/name"] = "nginx-application"
             }
           }
@@ -1379,7 +1366,6 @@ examples {
           loadBalancerSourceRanges = null
           externalTrafficPolicy = null
           selector {
-            ["app"] = "nginx-application"
             ["app.kubernetes.io/name"] = "nginx-application"
           }
           publishNotReadyAddresses = null
@@ -1397,7 +1383,6 @@ examples {
           preset = "Hard"
           topologyKey = "kubernetes.io/hostname"
           selectorLabels {
-            ["app"] = "nginx-application"
             ["app.kubernetes.io/name"] = "nginx-application"
           }
         }
@@ -1410,7 +1395,6 @@ examples {
                 labelSelector {
                   matchExpressions = null
                   matchLabels {
-                    ["app"] = "nginx-application"
                     ["app.kubernetes.io/name"] = "nginx-application"
                   }
                 }
