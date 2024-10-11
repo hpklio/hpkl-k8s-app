@@ -25,11 +25,11 @@ resourcesRequests: K8SResource = new {}
 resourcesLimits: K8SResource? = resourcesRequests
 
 selectorLabels: Mapping<String, String> = new {
-  ["app"] = applicationName
   ["app.kubernetes.io/name"] = applicationName
 }
 
 commonLabels: Mapping<String, String> = new {
+  ["app"] = applicationName
   ...selectorLabels
 }
 
