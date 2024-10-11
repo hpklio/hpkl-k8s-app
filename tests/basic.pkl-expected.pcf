@@ -72,7 +72,7 @@ examples {
               uid = null
               managedFields = null
               creationTimestamp = null
-              name = "example-app"
+              name = null
               namespace = null
               clusterName = null
             }
@@ -268,7 +268,7 @@ examples {
               uid = null
               managedFields = null
               creationTimestamp = null
-              name = "app"
+              name = null
               namespace = null
               clusterName = null
             }
