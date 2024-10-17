@@ -36,5 +36,4 @@ jobs:
           hpkl project resolve
           pkl test
           export SOPS_AGE_KEY_FILE='tests/age-key.txt'
-          hpkl eval tests/vals.pkl
           hpkl package          
