@@ -1,0 +1,12 @@
+local scheme = "vals:"
+
+function secretString(path: String): String? = read?("vals:\(path)").text
+
+function secretStringListing(path: String): Listing<String> = 
+    read*("\(scheme)\(path.replaceFirst("#", "?"))/**").toMap()
+        .entries.map((p) -> p.second.text).toListing()
+
+function secretStringMapping(path: String): Mapping<String, String> =
+  let (pathKey = "\(scheme)\(path.replaceFirst("#", "!"))/")
+    read*("\(pathKey)**").toMap()
+      .map((k,v) -> Pair(k.replaceFirst(pathKey, ""), v.text)).toMapping()
