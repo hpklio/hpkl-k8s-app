@@ -1,0 +1,31 @@
+amends "pkl:test"
+
+import "../renderer.pkl"
+import "../vals.pkl"
+
+local class SecretConfig {
+  @renderer.SecretField
+  string: String?
+  @renderer.SecretField
+  listing: Listing<String> = new {}
+  @renderer.SecretField
+  mapping: Mapping<String, String> = new {}
+}
+
+examples {
+  ["sops string"] {
+    new SecretConfig {
+      string = vals.sops.string("tests/secrets.yaml", "db/password")
+    }
+  }
+  ["sops listing"] {
+    new SecretConfig {
+      listing = vals.sops.listing("tests/secrets.yaml", "api/accessKeys")
+    }
+  }
+  ["sops mapping"] {
+    new SecretConfig {
+      mapping = vals.sops.mapping("tests/secrets.yaml", "basic_auth")
+    }
+  }
+}
