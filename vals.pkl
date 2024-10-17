@@ -3,7 +3,7 @@ local scheme = "vals:"
 function secretString(path: String): String? = read?("vals:\(path)").text
 
 function secretStringListing(path: String): Listing<String> = 
-    read*("\(scheme)\(path.replaceFirst("#", "?"))/**").toMap()
+    read*("\(scheme)\(path.replaceFirst("#", "!"))/**").toMap()
         .entries.map((p) -> p.second.text).toListing()
 
 function secretStringMapping(path: String): Mapping<String, String> =
