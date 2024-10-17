@@ -10,3 +10,16 @@ function secretStringMapping(path: String): Mapping<String, String> =
   let (pathKey = "\(scheme)\(path.replaceFirst("#", "!"))/")
     read*("\(pathKey)**").toMap()
       .map((k,v) -> Pair(k.replaceFirst(pathKey, ""), v.text)).toMapping()
+
+class SecretFileReader {
+    scheme: String
+    function path(path: String, key: String) : String = "\(scheme)://\(path)#/\(key)"
+    function string(file: String, key: String) : String? = 
+       secretString(path(file, key))     
+    function listing(file: String, key: String) : Listing<String> = 
+       secretStringListing(path(file, key))     
+    function mapping(file: String, key: String) : Mapping<String, String> = 
+       secretStringMapping(path(file, key))
+}
+
+sops = new SecretFileReader{ scheme = "sops" }
