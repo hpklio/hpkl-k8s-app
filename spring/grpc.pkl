@@ -21,7 +21,7 @@ open class Server {
     maxConnectionIdle: Duration?
     maxInboundMessageSize: DataSize?
     maxInboundMetadataSize: DataSize?
-    permitKeepAliveTime: Boolean?
+    permitKeepAliveTime: Duration?
     shutdownGracePeriod: Duration?
     enableKeepAlive: Boolean?
     healthServiceEnabled: Boolean?
