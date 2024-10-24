@@ -2235,4 +2235,307 @@ examples {
       javaToolOptions {}
     }
   }
+  ["spring without service"] {
+    new {
+      applicationName = "base-application"
+      resourcesRequests {
+        cpu = 500
+        memory = 128.mib
+      }
+      resourcesLimits {
+        cpu = 500
+        memory = 128.mib
+      }
+      selectorLabels {
+        ["app.kubernetes.io/name"] = "base-application"
+      }
+      commonLabels {
+        ["app"] = "base-application"
+        ["app.kubernetes.io/name"] = "base-application"
+      }
+      containerConfigPath = "/app/config"
+      containerSecretPath = "/app/secret"
+      configFileName = "application.yaml"
+      secretFileName = "application.secrets.yaml"
+      image {
+        fullName = "base-application:latest"
+        repository = null
+        name = "base-application"
+        tag = "latest"
+      }
+      config = null
+      deployment {
+        apiVersion = "apps/v1"
+        kind = "Deployment"
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels {
+            ["app"] = "base-application"
+            ["app.kubernetes.io/name"] = "base-application"
+          }
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "base-application"
+          namespace = null
+          clusterName = null
+        }
+        spec {
+          template {
+            metadata {
+              generation = null
+              finalizers = null
+              resourceVersion = null
+              annotations {
+                ["prometheus.io/scrape"] = "true"
+                ["prometheus.io/path"] = "/actuator/prometheus"
+                ["prometheus.io/port"] = "8081"
+              }
+              generateName = null
+              deletionTimestamp = null
+              labels {
+                ["app"] = "base-application"
+                ["app.kubernetes.io/name"] = "base-application"
+              }
+              ownerReferences = null
+              selfLink = null
+              deletionGracePeriodSeconds = null
+              uid = null
+              managedFields = null
+              creationTimestamp = null
+              name = null
+              namespace = null
+              clusterName = null
+            }
+            spec {
+              dnsPolicy = null
+              nodeName = null
+              terminationGracePeriodSeconds = null
+              dnsConfig = null
+              hostNetwork = null
+              readinessGates = null
+              serviceAccountName = "base-application"
+              imagePullSecrets = null
+              priorityClassName = null
+              hostAliases = null
+              securityContext = null
+              preemptionPolicy = null
+              nodeSelector = null
+              hostname = null
+              runtimeClassName = null
+              tolerations = null
+              automountServiceAccountToken = null
+              schedulingGates = null
+              schedulerName = null
+              activeDeadlineSeconds = null
+              os = null
+              setHostnameAsFQDN = null
+              enableServiceLinks = null
+              overhead = null
+              hostIPC = null
+              topologySpreadConstraints = null
+              volumes {}
+              ephemeralContainers = null
+              serviceAccount = null
+              priority = null
+              restartPolicy = null
+              shareProcessNamespace = null
+              hostUsers = null
+              resourceClaims = null
+              subdomain = null
+              containers {
+                new {
+                  volumeDevices = null
+                  image = "base-application:latest"
+                  imagePullPolicy = "IfNotPresent"
+                  livenessProbe {
+                    terminationGracePeriodSeconds = null
+                    failureThreshold = 3
+                    periodSeconds = 5
+                    tcpSocket = null
+                    timeoutSeconds = null
+                    successThreshold = null
+                    initialDelaySeconds = 10
+                    exec = null
+                    grpc = null
+                    httpGet {
+                      path = "/actuator/health"
+                      scheme = null
+                      port = "mgmt"
+                      host = null
+                      httpHeaders = null
+                    }
+                  }
+                  stdin = null
+                  terminationMessagePolicy = "FallbackToLogsOnError"
+                  terminationMessagePath = null
+                  workingDir = null
+                  resources {
+                    claims = null
+                    requests {
+                      ["cpu"] = "500m"
+                      ["memory"] = 128.mib
+                    }
+                    limits {
+                      ["cpu"] = "500m"
+                      ["memory"] = 128.mib
+                    }
+                  }
+                  securityContext = null
+                  startupProbe {
+                    terminationGracePeriodSeconds = null
+                    failureThreshold = 5
+                    periodSeconds = 20
+                    tcpSocket = null
+                    timeoutSeconds = null
+                    successThreshold = null
+                    initialDelaySeconds = null
+                    exec = null
+                    grpc = null
+                    httpGet {
+                      path = "/actuator/health/liveness"
+                      scheme = null
+                      port = "mgmt"
+                      host = null
+                      httpHeaders = null
+                    }
+                  }
+                  env {
+                    new {
+                      name = "JAVA_TOOL_OPTIONS"
+                      value = ""
+                      valueFrom = null
+                    }
+                  }
+                  ports {
+                    new {
+                      protocol = null
+                      hostIP = null
+                      name = "mgmt"
+                      containerPort = 8081
+                      hostPort = null
+                    }
+                  }
+                  restartPolicy = null
+                  command = null
+                  volumeMounts {}
+                  args = null
+                  lifecycle = null
+                  name = "app"
+                  tty = null
+                  readinessProbe {
+                    terminationGracePeriodSeconds = null
+                    failureThreshold = 3
+                    periodSeconds = 5
+                    tcpSocket = null
+                    timeoutSeconds = null
+                    successThreshold = null
+                    initialDelaySeconds = 10
+                    exec = null
+                    grpc = null
+                    httpGet {
+                      path = "/actuator/health/readiness"
+                      scheme = null
+                      port = "mgmt"
+                      host = null
+                      httpHeaders = null
+                    }
+                  }
+                  resizePolicy = null
+                  stdinOnce = null
+                  envFrom = null
+                }
+              }
+              initContainers = null
+              affinity {
+                nodeAffinity = null
+                podAffinity = null
+                podAntiAffinity = null
+              }
+              hostPID = null
+            }
+          }
+          paused = null
+          replicas = 2
+          revisionHistoryLimit = 2
+          selector {
+            matchExpressions = null
+            matchLabels {
+              ["app.kubernetes.io/name"] = "base-application"
+            }
+          }
+          minReadySeconds = 10
+          strategy {
+            type = "RollingUpdate"
+            rollingUpdate {
+              maxSurge = 1
+              maxUnavailable = 0
+            }
+          }
+          progressDeadlineSeconds = null
+        }
+        status = null
+      }
+      ingress = null
+      service = null
+      serviceAccount {
+        apiVersion = "v1"
+        kind = "ServiceAccount"
+        metadata {
+          generation = null
+          finalizers = null
+          resourceVersion = null
+          annotations = null
+          generateName = null
+          deletionTimestamp = null
+          labels {
+            ["app"] = "base-application"
+            ["app.kubernetes.io/name"] = "base-application"
+          }
+          ownerReferences = null
+          selfLink = null
+          deletionGracePeriodSeconds = null
+          uid = null
+          managedFields = null
+          creationTimestamp = null
+          name = "base-application"
+          namespace = null
+          clusterName = null
+        }
+        automountServiceAccountToken = null
+        imagePullSecrets = null
+        secrets = null
+      }
+      additional {}
+      affinity {
+        podAntiAffinityConfig {
+          preset = ""
+          topologyKey = "kubernetes.io/hostname"
+          selectorLabels {
+            ["app.kubernetes.io/name"] = "base-application"
+          }
+        }
+        config {
+          nodeAffinity = null
+          podAffinity = null
+          podAntiAffinity = null
+        }
+      }
+      configMap = null
+      secret = null
+      debug = false
+      grpc = null
+      http = null
+      jmx = null
+      javaToolOptions {}
+    }
+  }
 }
