@@ -53,4 +53,10 @@ examples {
       }
     }
   }
+  ["spring without service"] {
+    new SpringApplication {
+      grpc = null
+      http = null
+    }
+  }  
 }
