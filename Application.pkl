@@ -149,9 +149,9 @@ deployment: Deployment = new {
   }
 }
 
-ingress: Ingress?
-service: Service?
-serviceAccount: ServiceAccount?
+ingress: Ingress? = null
+service: Service? = null
+serviceAccount: ServiceAccount? = null
 additional: Mapping<String, K8sResource>
 
 affinity = new Affinities {

@@ -43,7 +43,7 @@ service = if (grpc != null || http != null) new {
   spec {
     clusterIP = "None"
     ports {
-      when (module.http.port != null) {
+      when (module.http != null) {
         new {
           name = "http"
           port = module.http.port
@@ -52,7 +52,7 @@ service = if (grpc != null || http != null) new {
           targetPort = "http"
         }
       }
-      when (module.grpc.port != null) {
+      when (module.grpc != null) {
         new {
           name = "grpc"
           port = module.grpc.port
