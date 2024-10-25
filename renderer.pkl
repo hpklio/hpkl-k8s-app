@@ -8,6 +8,7 @@ class ClassElement {
   property: reflect.Property
   val: unknown
   typed: Boolean
+  collection: Boolean = false
 }
 
 class SecretRenderer {
@@ -24,6 +25,25 @@ class SecretRenderer {
       collectProperties(clazz.superclass) + clazz.properties
     else clazz.properties
 
+  function isMap(clazz: Class) = 
+    let  (clazz = reflect.Class(clazz))
+      clazz.isSubclassOf(reflect.Class(Map)) ||
+      clazz.isSubclassOf(reflect.Class(Mapping))
+
+  function isList(clazz: Class) = 
+    let  (clazz = reflect.Class(clazz))
+      clazz.isSubclassOf(reflect.Class(List)) ||
+      clazz.isSubclassOf(reflect.Class(Listing))
+
+  function renderMap(value: Map | Mapping, secrets: Boolean): Dynamic =
+    let (map = if (value is Mapping) value.toMap() else value)
+      map.mapValues((k,v) -> render(v, secrets)).toDynamic()
+
+  function renderList(value: List | Listing, secrets: Boolean): Dynamic =
+    let (list = if (value is Listing) value.toList() else value)
+      list.map((v) -> render(v, secrets)).toDynamic()
+    
+
   function render(value: Typed, secrets: Boolean): Dynamic  =
     let (clazz = reflect.Class(value.getClass()))
         collectProperties(clazz)
@@ -35,17 +55,29 @@ class SecretRenderer {
                   typed = false
               })
           ).values.map((ce) ->
-            if (reflect.Class(ce.val.getClass()).isSubclassOf(reflect.Class(Typed)))
-              new ClassElement{
+            if (reflect.Class(ce.val.getClass()).isSubclassOf(reflect.Class(Typed))) new ClassElement{
                     name = ce.name
                     property = ce.property
                     val = render(ce.val, secrets)
                     typed = true
+              } else if (isMap(ce.val.getClass())) new ClassElement{
+                    name = ce.name
+                    property = ce.property
+                    val = renderMap(ce.val, secrets)
+                    typed = false
+                    collection = true
+              } else if (isList(ce.val.getClass())) new ClassElement{
+                    name = ce.name
+                    property = ce.property
+                    val = renderList(ce.val, secrets)
+                    typed = false
+                    collection = true
               } else ce
            ).toMap((ce) -> namedField(ce.property, ce.name), (ce) ->
               if (ce.typed) if ((ce.val as Dynamic).toMap().values.filterNonNull().isEmpty) null else ce.val
               else if (secrets && isSecretField(ce.property)) ce.val
               else if (!secrets && !isSecretField(ce.property)) ce.val
+              else if (ce.collection) ce.val
               else null
         ).toDynamic()
 }

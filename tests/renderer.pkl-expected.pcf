@@ -31,4 +31,30 @@ examples {
       anotherSecret = "1212121"
     }
   }
+  ["Listing secrets is working"] {
+    new {
+      list {
+        new {
+          name = null
+          id = null
+          secret = "TestSecret"
+          another = null
+          anotherSecret = "1212121"
+        }
+      }
+    }
+  }
+  ["Mapping secrets is working"] {
+    new {
+      map {
+        Test {
+          name = null
+          id = null
+          secret = "TestSecret"
+          another = null
+          anotherSecret = "1212121"
+        }
+      }
+    }
+  }
 }
