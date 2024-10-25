@@ -17,6 +17,14 @@ local class TestConfigExtended extends TestConfig  {
     anotherSecret: String?    
 }
 
+local class ListConfig {
+  list: Listing<TestConfigExtended>
+}
+
+local class MapConfig {
+  map: Mapping<String, TestConfigExtended>
+}
+
 local rend = new renderer.SecretRenderer{}
 
 examples {
@@ -51,5 +59,32 @@ examples {
         anotherField = "AnotherField"
         anotherSecret = "1212121"
     }, true)
-  }       
+  }
+  ["Listing secrets is working"] {
+    rend.render( new ListConfig {
+      list {
+        new TestConfigExtended{
+          name = "Test"
+          id = 12121
+          secret = "TestSecret"
+          anotherField = "AnotherField"
+          anotherSecret = "1212121"
+        }
+      }
+    }, true)
+  }
+
+  ["Mapping secrets is working"] {
+    rend.render( new MapConfig {
+      map {
+        ["Test"] = new TestConfigExtended{
+          name = "Test"
+          id = 12121
+          secret = "TestSecret"
+          anotherField = "AnotherField"
+          anotherSecret = "1212121"
+        }
+      }
+    }, true)
+  }  
 }
