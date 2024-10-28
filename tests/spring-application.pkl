@@ -16,6 +16,7 @@ examples {
         cpu = 722
         memory = 122.mib
       }      
+      redeployOnConfig = false
     }
   }
   ["spring application with jmx"] {
@@ -25,6 +26,7 @@ examples {
         memory = 122.mib
       }      
       debug = true
+      redeployOnConfig = false
     }
   }
   ["spring application with secrets"] {
@@ -33,6 +35,7 @@ examples {
         username = "admin"
         password = "secret"
       }
+      redeployOnConfig = false
     }
   }
   ["spring podAntiAffinityPresetSoft"] {
@@ -42,6 +45,7 @@ examples {
           preset = "Soft"
         }
       }
+      redeployOnConfig = false
     }
   }
   ["spring podAntiAffinityPresetHard"] {
@@ -51,12 +55,23 @@ examples {
           preset = "Hard"
         }
       }
+      redeployOnConfig = false
     }
   }
   ["spring without service"] {
     new SpringApplication {
       grpc = null
       http = null
+      redeployOnConfig = false
+    }
+  }  
+  ["Application with redeployment"] {
+    new SpringApplication {
+      config = new ExampleConfig {
+        username = "admin"
+        password = "secret"
+      }
+      redeployOnConfig = true
     }
   }  
 }
