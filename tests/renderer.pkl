@@ -29,6 +29,10 @@ local class MapConfig {
   map: Mapping<String, TestConfigExtended>
 }
 
+local class MapStringConfig {
+  map: Mapping<String, String>
+}
+
 local rend = new renderer.SecretRenderer{}
 
 examples {
@@ -100,5 +104,15 @@ examples {
         }
       }, false
     )    
-  }    
+  }
+  ["Map of general types are working"] {
+    rend.render(
+      new MapStringConfig{
+        map {
+          ["TEST"] = "TEST"
+          ["TEST2"] = "TEST2"
+        }
+      }, false
+    )    
+  }        
 }

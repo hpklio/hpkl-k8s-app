@@ -65,4 +65,12 @@ examples {
       }
     }
   }
+  ["Map of general types are working"] {
+    new {
+      map {
+        TEST = "TEST"
+        TEST2 = "TEST2"
+      }
+    }
+  }
 }
