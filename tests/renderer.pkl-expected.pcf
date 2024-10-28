@@ -73,4 +73,22 @@ examples {
       }
     }
   }
+  ["Map of general types are working with secrets"] {
+    new {
+      map = null
+    }
+  }
+  ["Lists of general types under secret are working"] {
+    new {
+      list {
+        "TEST"
+        "TEST2"
+      }
+    }
+  }
+  ["Lists of general types under secret are hidden"] {
+    new {
+      list = null
+    }
+  }
 }
