@@ -28,6 +28,8 @@ selectorLabels: Mapping<String, String> = new {
   ["app.kubernetes.io/name"] = applicationName
 }
 
+hidden redeployOnConfig : Boolean = true
+
 commonLabels: Mapping<String, String> = new {
   ["app"] = applicationName
   ...selectorLabels
@@ -61,7 +63,7 @@ hidden configMixin: Mixin<Dynamic>?
 
 deployment: Deployment = new {
   metadata {
-    name = applicationName
+    name = applicationName    
     labels {
       ...commonLabels
     }
@@ -76,6 +78,11 @@ deployment: Deployment = new {
       metadata {
         labels {
           ...commonLabels
+        }
+        annotations {
+          when (config != null && redeployOnConfig == true) {
+            ["checksum/config"] = config.toString().sha256
+          }
         }
       }
       spec {

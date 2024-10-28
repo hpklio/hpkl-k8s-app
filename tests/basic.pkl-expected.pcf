@@ -58,7 +58,7 @@ examples {
               generation = null
               finalizers = null
               resourceVersion = null
-              annotations = null
+              annotations {}
               generateName = null
               deletionTimestamp = null
               labels {
@@ -251,7 +251,7 @@ examples {
               generation = null
               finalizers = null
               resourceVersion = null
-              annotations = null
+              annotations {}
               generateName = null
               deletionTimestamp = null
               labels {
