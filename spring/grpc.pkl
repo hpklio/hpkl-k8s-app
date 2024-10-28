@@ -3,6 +3,7 @@ open class Channel {
     negotiationType: "TLS"| "PLAINTEXT" = "TLS"
     defaultLoadBalancingPolicy: String?
     immediateConnectTimeout: Duration?
+    enableKeepAlive: Boolean?
     keepAliveTime: Duration?
     keepAliveTimeout: Duration?
     keepAliveWithoutCalls: Boolean?
