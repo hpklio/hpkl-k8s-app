@@ -35,14 +35,22 @@ class SecretRenderer {
       clazz.isSubclassOf(reflect.Class(List)) ||
       clazz.isSubclassOf(reflect.Class(Listing))
 
+
   function renderMap(value: Map | Mapping, secrets: Boolean): Dynamic =
     let (map = if (value is Mapping) value.toMap() else value)
-      map.mapValues((k,v) -> render(v, secrets)).toDynamic()
+      let (mapClazz = reflect.Class(value.getClass()))
+      map.mapValues((k,v) -> renderIfTyped(v, secrets)).toDynamic()
 
   function renderList(value: List | Listing, secrets: Boolean): Dynamic =
     let (list = if (value is Listing) value.toList() else value)
-      list.map((v) -> render(v, secrets)).toDynamic()
-    
+      list.map((v) -> renderIfTyped(v, secrets)).toDynamic()
+  
+  function renderIfTyped(value: Any, secrets: Boolean): Any = 
+    let (clazz = reflect.Class(value.getClass()))
+      if (clazz.isSubclassOf(reflect.Class(Typed))) render(value, secrets)
+      else if (isList(value.getClass())) renderList(value, secrets)
+      else if (isMap(value.getClass())) renderMap(value, secrets)
+      else value
 
   function render(value: Typed, secrets: Boolean): Dynamic  =
     let (clazz = reflect.Class(value.getClass()))

@@ -21,6 +21,10 @@ local class ListConfig {
   list: Listing<TestConfigExtended>
 }
 
+local class ListStringConfig {
+  list: Listing<String>
+}
+
 local class MapConfig {
   map: Mapping<String, TestConfigExtended>
 }
@@ -87,4 +91,14 @@ examples {
       }
     }, true)
   }  
+  ["Lists of general types are working"] {
+    rend.render(
+      new ListStringConfig{
+        list {
+          "TEST"
+          "TEST2"
+        }
+      }, false
+    )    
+  }    
 }

@@ -57,4 +57,12 @@ examples {
       }
     }
   }
+  ["Lists of general types are working"] {
+    new {
+      list {
+        "TEST"
+        "TEST2"
+      }
+    }
+  }
 }

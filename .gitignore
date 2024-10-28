@@ -1,3 +1,4 @@
 .out
 PklProject.deps.json
 .idea
+.pkl-lsp
