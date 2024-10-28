@@ -57,4 +57,20 @@ examples {
       }
     }
   }
+  ["Lists of general types are working"] {
+    new {
+      list {
+        "TEST"
+        "TEST2"
+      }
+    }
+  }
+  ["Map of general types are working"] {
+    new {
+      map {
+        TEST = "TEST"
+        TEST2 = "TEST2"
+      }
+    }
+  }
 }
