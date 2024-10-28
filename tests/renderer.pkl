@@ -25,6 +25,11 @@ local class ListStringConfig {
   list: Listing<String>
 }
 
+local class ListStringConfiSecret {
+  @renderer.SecretField
+  list: Listing<String>
+}
+
 local class MapConfig {
   map: Mapping<String, TestConfigExtended>
 }
@@ -114,5 +119,35 @@ examples {
         }
       }, false
     )    
-  }        
+  }  
+  ["Map of general types are working with secrets"] {
+    rend.render(
+      new MapStringConfig{
+        map {
+          ["TEST"] = "TEST"
+          ["TEST2"] = "TEST2"
+        }
+      }, true
+    )    
+  }
+  ["Lists of general types under secret are working"] {
+    rend.render(
+      new ListStringConfiSecret{
+        list {
+          "TEST"
+          "TEST2"
+        }
+      }, true
+    )    
+  }
+  ["Lists of general types under secret are hidden"] {
+    rend.render(
+      new ListStringConfiSecret{
+        list {
+          "TEST"
+          "TEST2"
+        }
+      }, false
+    )    
+  }                
 }
