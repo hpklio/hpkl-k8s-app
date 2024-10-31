@@ -3,13 +3,10 @@ examples {
     new {
       name = "Test"
       id = 12121
-      secret = null
     }
   }
   ["Rendering is working only secret"] {
     new {
-      name = null
-      id = null
       secret = "TestSecret"
     }
   }
@@ -17,17 +14,12 @@ examples {
     new {
       name = "Test"
       id = 12121
-      secret = null
       another = "AnotherField"
-      anotherSecret = null
     }
   }
   ["Rendering is working for inheritance only for secrets"] {
     new {
-      name = null
-      id = null
       secret = "TestSecret"
-      another = null
       anotherSecret = "1212121"
     }
   }
@@ -35,10 +27,7 @@ examples {
     new {
       list {
         new {
-          name = null
-          id = null
           secret = "TestSecret"
-          another = null
           anotherSecret = "1212121"
         }
       }
@@ -48,10 +37,7 @@ examples {
     new {
       map {
         Test {
-          name = null
-          id = null
           secret = "TestSecret"
-          another = null
           anotherSecret = "1212121"
         }
       }
@@ -74,9 +60,7 @@ examples {
     }
   }
   ["Map of general types are working with secrets"] {
-    new {
-      map = null
-    }
+    new {}
   }
   ["Lists of general types under secret are working"] {
     new {
@@ -87,8 +71,16 @@ examples {
     }
   }
   ["Lists of general types under secret are hidden"] {
+    new {}
+  }
+  ["Listing none secrets do not produce empty objects"] {
     new {
-      list = null
+      list {}
+    }
+  }
+  ["Mapping none secrets do not produce empty objects"] {
+    new {
+      map {}
     }
   }
 }

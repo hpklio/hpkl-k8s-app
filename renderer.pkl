@@ -12,6 +12,9 @@ class ClassElement {
   collection: Boolean = false
 }
 
+class SkipValue {}
+const SKIP = new SkipValue {}
+
 class SecretRenderer {
   function renderSecrets(value: Typed): Dynamic = render(value, true)
   function renderConfigs(value: Typed): Dynamic = render(value, false)
@@ -47,11 +50,18 @@ class SecretRenderer {
   function renderMap(value: Map | Mapping, secrets: Boolean): Dynamic =
     let (map = if (value is Mapping) value.toMap() else value)
       let (mapClazz = reflect.Class(value.getClass()))
-      map.mapValues((k,v) -> renderIfTyped(v, secrets)).toDynamic()
+      map.mapValues((k,v) -> renderIfTyped(v, secrets))
+        .filter((k,v) -> if (v is Dynamic) v.toMap().length > 0 else true)
+        .toDynamic()
 
   function renderList(value: List | Listing, secrets: Boolean): Dynamic =
     let (list = if (value is Listing) value.toList() else value)
-      list.map((v) -> renderIfTyped(v, secrets)).toDynamic()
+    list.map((v) -> renderIfTyped(v, secrets))
+      // Filter empty objects
+      .filter((v) ->         
+        if (v is Dynamic) v.toMap().length > 0 else true
+      )
+      .filterNonNull().toDynamic()
   
   function renderIfTyped(value: Any, secrets: Boolean): Any = 
     let (clazz = reflect.Class(value.getClass()))
@@ -94,13 +104,13 @@ class SecretRenderer {
               } else ce
            ).toMap((ce) -> namedField(ce.property, ce.name), (ce) ->
               if (ce.typed) 
-                if ((ce.val as Dynamic).toMap().values.filterNonNull().isEmpty) null 
+                if ((ce.val as Dynamic).toMap().values.filterNonNull().isEmpty) SKIP 
                 else ce.val
               else 
                 if (secrets && isSecretField(ce.property)) ce.val 
                 else if (!secrets && !isSecretField(ce.property)) ce.val
                 else if (ce.collection && isTypedCollection(ce.originalVal)) ce.val
-                else null
+                else SKIP
 
-        ).toDynamic()
+        ).toDynamic().toMap().filter((k,v) -> v != SKIP).toDynamic()
 }
