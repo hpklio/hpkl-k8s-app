@@ -21,6 +21,19 @@ local class ListConfig {
   list: Listing<TestConfigExtended>
 }
 
+local open class NoneSecretTestConfig {
+    name: String?
+    id: UInt
+}
+
+local class NoneSecretListConfig {
+  list: Listing<NoneSecretTestConfig>
+}
+
+local class NoneSecretMapConfig {
+  map: Mapping<String, NoneSecretTestConfig>
+}
+
 local class ListStringConfig {
   list: Listing<String>
 }
@@ -149,5 +162,25 @@ examples {
         }
       }, false
     )    
+  }    
+  ["Listing none secrets do not produce empty objects"] {
+    rend.render( new NoneSecretListConfig {
+      list {
+        new NoneSecretTestConfig{
+          name = "Test"
+          id = 12121
+        }
+      }
+    }, true)
+  }    
+  ["Mapping none secrets do not produce empty objects"] {
+    rend.render( new NoneSecretMapConfig {
+      map {
+        ["TEST"] = new NoneSecretTestConfig{
+          name = "Test"
+          id = 12121
+        }
+      }
+    }, true)
   }                
 }
