@@ -74,13 +74,9 @@ examples {
     new {}
   }
   ["Listing none secrets do not produce empty objects"] {
-    new {
-      list {}
-    }
+    new {}
   }
   ["Mapping none secrets do not produce empty objects"] {
-    new {
-      map {}
-    }
+    new {}
   }
 }

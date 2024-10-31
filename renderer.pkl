@@ -47,21 +47,23 @@ class SecretRenderer {
     )
     list.firstOrNull is Typed
 
-  function renderMap(value: Map | Mapping, secrets: Boolean): Dynamic =
+  function renderMap(value: Map | Mapping, secrets: Boolean): Dynamic | SkipValue =
     let (map = if (value is Mapping) value.toMap() else value)
       let (mapClazz = reflect.Class(value.getClass()))
-      map.mapValues((k,v) -> renderIfTyped(v, secrets))
+      let (dyn = map.mapValues((k,v) -> renderIfTyped(v, secrets))
         .filter((k,v) -> if (v is Dynamic) v.toMap().length > 0 else true)
-        .toDynamic()
+        .toDynamic())
+        if (dyn.toMap().length > 0) dyn else SKIP
 
-  function renderList(value: List | Listing, secrets: Boolean): Dynamic =
+  function renderList(value: List | Listing, secrets: Boolean): Dynamic | SkipValue =
     let (list = if (value is Listing) value.toList() else value)
-    list.map((v) -> renderIfTyped(v, secrets))
+    let (dyn = list.map((v) -> renderIfTyped(v, secrets))
       // Filter empty objects
       .filter((v) ->         
         if (v is Dynamic) v.toMap().length > 0 else true
       )
-      .filterNonNull().toDynamic()
+      .filterNonNull().toDynamic())
+      if (dyn.toList().length > 0) dyn else SKIP      
   
   function renderIfTyped(value: Any, secrets: Boolean): Any = 
     let (clazz = reflect.Class(value.getClass()))
