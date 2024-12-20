@@ -29,4 +29,5 @@ tests {
   "spring/tests/grpc.pkl"
   "spring/tests/r2dbc.pkl"
   "spring/tests/logging.pkl"
+  "spring/tests/security.pkl"
 }
